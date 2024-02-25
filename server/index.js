@@ -7,6 +7,11 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 
+// Packages defined by developers
+import authRoutes from "./routes/auth.js";
+// import postRoutes from "./routes/posts.js";
+import userRoutes from "./routes/users.js";
+
 // Configurations
 // -- Path
 const __filename = fileURLToPath(import.meta.url);
@@ -19,7 +24,7 @@ const app = express();
 // Routes
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
-app.use("/posts", postRoutes);
+// app.use("/posts", postRoutes);
 
 // Mongoose Setup and listening on port
 const PORT = 3000;
