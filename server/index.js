@@ -16,6 +16,11 @@ dotenv.config();
 // -- Initialize Express App instance
 const app = express();
 
+// Routes
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
+app.use("/posts", postRoutes);
+
 // Mongoose Setup and listening on port
 const PORT = 3000;
 mongoose.connect(process.env.MONGO_URL)
