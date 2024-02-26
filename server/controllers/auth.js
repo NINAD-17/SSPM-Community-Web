@@ -17,9 +17,7 @@ export const register = async (req, res) => {
             skillSet,
             gradYear,
             connections,
-            workingAt,
-            viewedProfile,
-            impressions
+            workingAt
         } = req.body; // Destructuring parameters from req.body. It's all data from the registration form.
 
         // Encrypting the password
@@ -31,7 +29,7 @@ export const register = async (req, res) => {
             firstName, 
             lastName, 
             email, 
-            password,
+            password: passwordHash,
             picturePath,
             headline,
             about,
@@ -54,7 +52,7 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await User.findOne({ email }); // Trying to find user with requested email id
+        const user = await User.findOne({ email: email }); // Trying to find user with requested email id
 
         if(!user) return res.status(500).json({ message: "User not found!"});
 
