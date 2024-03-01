@@ -21,4 +21,7 @@ const GroupSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "GroupPost"
     }]
-})
+});
+
+const Group = mongoose.model("Group", GroupSchema);
+export default Group;

@@ -28,4 +28,7 @@ const GroupPostSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Group'
     }
-})
+});
+
+const GroupPost = mongoose.model("GroupPost", GroupPostSchema);
+export default GroupPost;
