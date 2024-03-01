@@ -65,3 +65,28 @@ export const likePost = async(req, res) => {
         res.status(404).json({ message: error.message });
     }
 }
+
+// DELETE
+export const deletePost = async(req, res) => {
+    try {
+        const { userId } = req.body;
+        const { id } = req.params;
+
+        const post = await Post.findById(id);
+        const isUserPost = post.userId === userId ? true : false;
+
+        if(isUserPost) {
+            const deletePost = await Post.deleteOne({ _id: id });
+
+            if(deletePost.deletedCount === 0)
+                res.status(404).json(`Post with id ${id} not found.`);
+            else
+                res.status(200).json(`${ id } post deleted successfully`);
+        } else {
+            res.status(409).json(`You don't have any rights to delete this post.`);
+        }
+
+    } catch(error) {
+        res.status(404).json({ message: error.message });
+    }
+}

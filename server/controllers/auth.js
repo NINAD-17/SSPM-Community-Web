@@ -66,7 +66,7 @@ export const adminRegistration = async (req, res) => {
             res.status(200).json(`Successfully registered ${req.params.userId} as an Admin.`);
         } else {
             // If that specific user is already registered as an admin then he will not register once again as an admin
-            res.json(`This user is already registered as an admin.`);
+            res.status(409).json(`This user is already registered as an admin.`);
         }
         
     } catch(error) {

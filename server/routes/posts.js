@@ -1,5 +1,5 @@
 import express from "express";
-import { createPost, getFeedPosts, getUserPosts, likePost } from "../controllers/posts.js";
+import { createPost, deletePost, getFeedPosts, getUserPosts, likePost } from "../controllers/posts.js";
 
 const router = express.Router();
 
@@ -12,5 +12,8 @@ router.post("/createpost", createPost);
 
 // UPDATE
 router.patch("/:id/like", likePost);
+
+// DELETE
+router.delete("/:id/delete-post", deletePost);
 
 export default router;
