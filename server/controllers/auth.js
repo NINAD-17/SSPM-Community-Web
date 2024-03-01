@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt"; // To encrypt our password
 import User from "../models/User.js"; // User model
+import Admin from "../models/Admin.js"; // Admin model
 
 // Register a new user
 export const register = async (req, res) => {
@@ -49,6 +50,30 @@ export const register = async (req, res) => {
     }
 }
 
+// Register Admins
+export const adminRegistration = async (req, res) => {
+    try {
+        const adminFound = await Admin.findOne({ user: req.params.userId });
+        const isAdminFound = adminFound ? true : false;
+
+        if(!isAdminFound) {
+            // If that user isn't an admin then he can be registered as an admin
+            const admin = new Admin({
+                user: req.params.userId
+            });
+
+            await admin.save();
+            res.status(200).json(`Successfully registered ${req.params.userId} as an Admin.`);
+        } else {
+            // If that specific user is already registered as an admin then he will not register once again as an admin
+            res.json(`This user is already registered as an admin.`);
+        }
+        
+    } catch(error) {
+        res.status(500).json({error: error.message}); // Registration failed 
+    }
+}
+
 export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -62,7 +87,10 @@ export const login = async (req, res) => {
         // If both email and password are correct then,
         delete user.password; // So that it doesn't get sent back to the front-end. NOTE: WE'RE NOT DELETING IT FROM DATABASE.
 
-        res.status(200).json({ user }); // It will send user's information except his password.
+        const admin = await Admin.findOne({ user: user._id }); // In admin schema we've used user
+        const isAdmin = admin ? true : false; // If any document matches with user._id in admin then it's an admin otherwise it's a normal user.
+
+        res.status(200).json({ user, isAdmin }); // It will send user's information except his password.
     } catch(error) {
         res.status(500).json({error: error.message});
     }
