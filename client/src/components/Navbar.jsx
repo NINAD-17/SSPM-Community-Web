@@ -2,7 +2,7 @@
 function Navbar() {
     
     return (
-        <nav className="bg-white w-full h-16 flex justify-between items-center p-6 border-b">
+        <nav className="fixed top-0 z-0 bg-white w-full h-16 flex justify-between items-center p-6 border-b">
             <div className="left flex items-center">
                 <div className="logo font-bold text-2xl sm:text-3xl cursor-pointer text-blue-600">SSPM Community</div>
                 <div className="hidden md:block ml-3">
