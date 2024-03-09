@@ -17,15 +17,15 @@ function PostCard() {
                     <img className="rounded object-cover" src="https://media.licdn.com/dms/image/D5622AQGQks0CkLD-FA/feedshare-shrink_800/0/1709865411351?e=1712793600&v=beta&t=DKwkbeGg0cdob8v_VcxrX_4Wwx7qfg59aBaVhDo8Dew" alt="" />
                 </div>
             </div>
-            <div className="bottom-icons flex justify-between text-blue-800 px-8 cursor-pointer">
+            <div className="bottom-icons flex justify-between text-blue-800 px-8">
                 <div className="likes">
-                    <span className="material-symbols-outlined hover:text-blue-400">thumb_up</span>
+                    <span className="material-symbols-outlined hover:text-blue-400 cursor-pointer">thumb_up</span>
                 </div>
                 <div className="comments">
-                    <span className="material-symbols-outlined hover:text-blue-400">comment</span>
+                    <span className="material-symbols-outlined hover:text-blue-400 cursor-pointer">comment</span>
                 </div>
                 <div className="share">
-                    <span className="material-symbols-outlined hover:text-blue-400">share</span>
+                    <span className="material-symbols-outlined hover:text-blue-400 cursor-pointer">share</span>
                 </div>
                 
 
