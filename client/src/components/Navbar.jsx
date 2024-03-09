@@ -1,8 +1,10 @@
+import { useSelector } from "react-redux"
 
 function Navbar() {
+    const user = useSelector(state => state.user);
     
     return (
-        <nav className="fixed top-0 z-0 bg-white w-full h-16 flex justify-between items-center p-6 border-b">
+        <nav className="fixed top-0 z-0 bg-white w-full h-16 flex justify-between items-center p-6 border-b border-blue-200">
             <div className="left flex items-center">
                 <div className="logo font-bold text-2xl sm:text-3xl cursor-pointer text-blue-600">SSPM Community</div>
                 <div className="hidden md:block ml-3">
@@ -30,12 +32,13 @@ function Navbar() {
                         <h3 className="text-xs xl:text-sm mt-0.5">Mode</h3>
                     </li>
                     <li className="cursor-pointer flex flex-col items-center hover:text-blue-400">
-                        <span className="material-symbols-outlined">account_circle</span>
+                        <img className="h-7 w-7 rounded-full mr-2" src="https://media.licdn.com/dms/image/D4D03AQEmLM1-sdclrg/profile-displayphoto-shrink_100_100/0/1686311935075?e=1715212800&v=beta&t=GScHG9iR2mPgwvLQIQNVhzc4TIpni14KY_eoLKWMB3c" alt="" />
+                        {/* <span className="material-symbols-outlined">account_circle</span> */}
                         <h3 className="text-xs xl:text-sm mt-0.5">Profile</h3>
                     </li>
                 </ul>
                 <div className="hamburger sm:hidden cursor-pointer">
-                    <img className="w-5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1024px-Hamburger_icon.svg.png" alt="" />
+                    <span className="material-symbols-outlined text-blue-800 hover:text-blue-400 text-xl">menu</span>
                 </div>
             </div>
         </nav>
