@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage"
 import NotFound from "./pages/NotFound"
+import Navbar from "./components/Navbar"
 const ProfilePage = React.lazy(() => import("./pages/ProfilePage"))
 const CommentPage = React.lazy(() => import("./pages/CommentPage"))
 // ** Use react.lazy while importing all the pages to optimize the performance
@@ -20,6 +21,7 @@ const routes = () => {
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/comments" element={<CommentPage />} />
+                <Route path="/nav" element={<Navbar />} />
                 {/* groupPostsPage */}
                 {/* ... Think about more pages */}
                 <Route path="/404" element={<NotFound />} />
