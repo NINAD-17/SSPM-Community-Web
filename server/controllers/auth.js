@@ -11,13 +11,13 @@ export const register = async (req, res) => {
             lastName, 
             email, 
             password,
-            picturePath,
-            headline,
-            about,
-            skillSet,
-            gradYear,
-            connections,
-            workingAt
+            // picturePath,
+            // headline,
+            // about,
+            // skillSet,
+            // gradYear,
+            // connections,
+            // workingAt
         } = req.body; // Destructuring parameters from req.body. It's all data from the registration form.
 
         // Encrypting the password
@@ -30,13 +30,13 @@ export const register = async (req, res) => {
             lastName, 
             email, 
             password: passwordHash,
-            picturePath,
-            headline,
-            about,
-            skillSet,
-            gradYear,
-            connections,
-            workingAt,
+            // picturePath,
+            // headline,
+            // about,
+            // skillSet,
+            // gradYear,
+            // connections,
+            // workingAt,
             viewedProfile: 0,
             impressions: 0
         });

@@ -2,6 +2,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors"; // Cross origin request. As my server running on 3000 and frontend on different port if I not include this then server will give you an error related to cors.
 
 // Node Native Packages
 import path from "path";
@@ -22,6 +23,7 @@ dotenv.config();
 const app = express();
 app.use(express.json({limit: "30mb"}));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
+app.use(cors());
 
 // Routes
 app.use("/auth", authRoutes);

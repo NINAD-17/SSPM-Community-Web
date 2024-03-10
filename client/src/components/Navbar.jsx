@@ -32,7 +32,7 @@ function Navbar() {
                         <h3 className="text-xs xl:text-sm mt-0.5">Mode</h3>
                     </li>
                     <li className="cursor-pointer flex flex-col items-center hover:text-blue-400">
-                        <img className="h-7 w-7 rounded-full mr-2" src="https://media.licdn.com/dms/image/D4D03AQEmLM1-sdclrg/profile-displayphoto-shrink_100_100/0/1686311935075?e=1715212800&v=beta&t=GScHG9iR2mPgwvLQIQNVhzc4TIpni14KY_eoLKWMB3c" alt="" />
+                        <img className="h-6 w-6 rounded-full" src="https://media.licdn.com/dms/image/D4D03AQEmLM1-sdclrg/profile-displayphoto-shrink_100_100/0/1686311935075?e=1715212800&v=beta&t=GScHG9iR2mPgwvLQIQNVhzc4TIpni14KY_eoLKWMB3c" alt="" />
                         {/* <span className="material-symbols-outlined">account_circle</span> */}
                         <h3 className="text-xs xl:text-sm mt-0.5">Profile</h3>
                     </li>
