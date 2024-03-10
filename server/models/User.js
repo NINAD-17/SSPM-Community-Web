@@ -47,6 +47,7 @@ const UserSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
+    branch: String,
     workingAt: String,
     viewedProfile: Number,
     impressions: Number

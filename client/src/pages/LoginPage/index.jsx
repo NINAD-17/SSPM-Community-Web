@@ -29,12 +29,34 @@ const LoginPage = () => {
                         </form>
                 </div>
             </div>    
-            :   <div>
+            :   <div className="flex flex-col gap-8 justify-center items-center w-full h-screen">
                     <div>
                         <p className="text-2xl text-slate-700">Register to</p>
                         <h1 className="text-4xl font-extrabold text-blue-800 md:text-5xl">SSPM COMMUNITY</h1>
                     </div>
-                    <div></div>
+                    <div className="p-4 bg-blue-100 rounded-xl w-2/3 md:w-3/5 lg:w-96">
+                        <form action="">
+                            <div className="flex gap-5">
+                                <div>
+                                    <label htmlFor="fname" className="block text-sm font-medium mb-2 lg:text-md">First Name</label>
+                                    <input type="text" name="fname" placeholder="First Name" className="mb-2 w-full outline-1 outline-blue-400 rounded-xl p-2 text-md" />
+                                </div>
+                                <div>
+                                    <label htmlFor="lname" className="block text-sm font-medium mb-2 lg:text-md">Last Name</label>
+                                    <input type="text" name="lname" placeholder="Last Name" className="mb-2 w-full outline-1 outline-blue-400 rounded-xl p-2 text-md" />
+                                </div>
+                            </div>
+                            <div className="">
+                                <label htmlFor="email" className="block text-sm font-medium mb-2 lg:text-md">Your Email</label>
+                                <input type="email" name="email" className="mb-2 w-full outline-1 outline-blue-400 rounded-xl p-2 text-md" placeholder="Enter your email" />
+                            </div>
+                            <div className="">
+                                <label htmlFor="password" className="block text-sm font-medium mb-2 lg:text-md">Password</label>
+                                <input type="password" name="password" className="mb-2 w-full outline-1 outline-blue-400 rounded-xl p-2 text-md" placeholder="Create a strong password (min 8 characters)" />
+                            </div>
+                            <button type="submit" className="w-full bg-blue-800 p-2 rounded-xl mt-7 text-white hover:bg-blue-500">Register</button>
+                        </form>
+                    </div>
                 </div>
             }
             
