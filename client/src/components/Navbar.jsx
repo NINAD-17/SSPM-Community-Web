@@ -1,12 +1,14 @@
+import { useState } from "react";
 import { useSelector } from "react-redux"
 
 function Navbar() {
+    const [ isProfileHover, setProfileHover ] = useState(false);
     const user = useSelector(state => state.user);
     
     return (
         <nav className="fixed top-0 z-0 bg-white w-full h-16 flex justify-between items-center p-6 border-b border-blue-200">
             <div className="left flex items-center">
-                <div className="logo font-bold text-2xl sm:text-3xl cursor-pointer text-blue-600">SSPM Community</div>
+                <div className="logo font-bold text-2xl sm:text-3xl cursor-pointer text-blue-600">SSPM COMMUNITY</div>
                 <div className="hidden md:block ml-3">
                     <form action="">
                         <input className="p-2 rounded-2xl border border-blue-400 focus:outline-blue-600" type="text" placeholder="Search" />
@@ -31,8 +33,8 @@ function Navbar() {
                         <span className="material-symbols-outlined">dark_mode</span>
                         <h3 className="text-xs xl:text-sm mt-0.5">Mode</h3>
                     </li>
-                    <li className="cursor-pointer flex flex-col items-center hover:text-blue-400">
-                        <img className="h-6 w-6 rounded-full" src="https://media.licdn.com/dms/image/D4D03AQEmLM1-sdclrg/profile-displayphoto-shrink_100_100/0/1686311935075?e=1715212800&v=beta&t=GScHG9iR2mPgwvLQIQNVhzc4TIpni14KY_eoLKWMB3c" alt="" />
+                    <li className="cursor-pointer flex flex-col items-center overflow-hidden hover:text-blue-400" onMouseEnter={() => setProfileHover(true)} onMouseLeave={() => setProfileHover(false)} >
+                        <img className={`h-6 w-6 rounded-full border object-cover ${isProfileHover ? "border-blue-500": ""}`} src={`${(user !== null && user.profilePicture) ? user.profilePicture : "../../user.png"}`} alt="" />
                         {/* <span className="material-symbols-outlined">account_circle</span> */}
                         <h3 className="text-xs xl:text-sm mt-0.5">Profile</h3>
                     </li>
