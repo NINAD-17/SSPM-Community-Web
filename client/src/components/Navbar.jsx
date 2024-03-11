@@ -34,7 +34,7 @@ function Navbar() {
                         <h3 className="text-xs xl:text-sm mt-0.5">Mode</h3>
                     </li>
                     <li className="cursor-pointer flex flex-col items-center overflow-hidden hover:text-blue-400" onMouseEnter={() => setProfileHover(true)} onMouseLeave={() => setProfileHover(false)} >
-                        <img className={`h-6 w-6 rounded-full border object-cover ${isProfileHover ? "border-blue-500": ""}`} src={`${(user !== null && user.profilePicture) ? user.profilePicture : "../../user.png"}`} alt="" />
+                        <img className={`h-6 w-6 rounded-full border object-cover ${isProfileHover ? "border-blue-500": ""}`} src={`${(user !== null && user.picturePath) ? user.picturePath : "../../user.png"}`} alt="" />
                         {/* <span className="material-symbols-outlined">account_circle</span> */}
                         <h3 className="text-xs xl:text-sm mt-0.5">Profile</h3>
                     </li>

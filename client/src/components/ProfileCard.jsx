@@ -35,7 +35,7 @@ const ProfileCard = ({ userId }) => {
         <>
             <div className="bg-white shadow rounded-xl p-6">
                 <img src={`${picturePath ? picturePath : "../../user.png"}`} alt="Profile" className="h-24 w-24 sm:h-20 sm:w-20 rounded-full mx-auto object-cover border" />
-                <h2 className="text-xl font-semibold mt-2 text-center hover:underline sm:text-lg cursor-pointer">{ user ? `${firstName} ${lastName}` : `User Name` }</h2>
+                <h2 className="text-xl font-semibold mt-2 text-center hover:underline sm:text-lg cursor-pointer" onClick={() => navigate(`/profile/${userId}`)}>{ user ? `${firstName} ${lastName}` : `User Name` }</h2>
                 <p className="text-md text-center text-gray-600 sm:text-sm">{ headline }</p>
                 <hr className="border-blue-400 my-3" />
                 <div className="text-md sm:text-sm">

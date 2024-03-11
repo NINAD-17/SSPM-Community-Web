@@ -1,5 +1,5 @@
 // Setting up all the routes for our application
-import React from "react"
+import React, { Suspense } from "react"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 // Using React.lazy for optimized performance. It will load pages only when it's required and not at initial stage.
@@ -16,16 +16,18 @@ const routes = () => {
     return (
         // **** Include line for react.suspense here to show loader.
         <Router>
+            <Suspense fallback={<div>Loading...</div>}>
             <Routes>
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/home" element={<HomePage />} />
-                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/profile/:userId" element={<ProfilePage />} />
                 <Route path="/comments" element={<CommentPage />} />
                 <Route path="/nav" element={<Navbar />} />
                 {/* groupPostsPage */}
                 {/* ... Think about more pages */}
                 <Route path="/404" element={<NotFound />} />
             </Routes>
+            </Suspense>
         </Router>
     )
 }

@@ -61,7 +61,7 @@ const Posts = ({ userId, isProfile = false }) => {
                             description={description}
                             picturePath={picturePath}
                             userPicturePath={userPicturePath}
-                            likes={likes}
+                            likes={likes.length}
                             // comments={comments}
                         />
                     )
