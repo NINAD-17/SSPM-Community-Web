@@ -59,8 +59,16 @@ export const likePost = async(req, res) => {
         if(isLiked) {
             post.likes.delete(userId); // It will remove userId-true entry from the map of likes
         } else {
-            post.likes.add(userId, true); // It's a map therefore value is stored as UserId-true
+            post.likes.set(userId, true); // It's a map therefore value is stored as UserId-true
         }
+
+        const updatedPost = await Post.findByIdAndUpdate(
+            id,
+            { likes: post.likes },
+            { new: true } // it tells Mongoose to return the new version of the document.
+        );
+
+        res.status(200).json(updatedPost);
     } catch(error) {
         res.status(404).json({ message: error.message });
     }

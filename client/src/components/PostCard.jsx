@@ -1,11 +1,30 @@
 import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setPost } from "../state";
 
-function PostCard({ _id, userId, name, description, picturePath, userPicturePath, likes }) {
-
+function PostCard({ postId, userId, name, description, picturePath, userPicturePath, likes }) {
+    console.log({postId}, {userId});
     const navigate = useNavigate();
-    const [ isLike, setIsLike ] = useState(false);
+    const dispatch = useDispatch();
+    const loggedInUserId = useSelector((state) => state.user._id);
+    console.log({loggedInUserId});
+    const isLiked = Boolean(likes[loggedInUserId]);
+    const likesCount = Object.keys(likes).length;
     console.log({likes});
+
+    const updateLike = async() => {
+        const id = postId;
+        const response = await fetch(`http://localhost:3000/posts/${id}/likes`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userId: loggedInUserId })
+        });
+        const updatedPost = await response.json();
+        dispatch(setPost({ post: updatedPost }));
+    }
 
     return (
         <div className="bg-white p-6 shadow rounded-xl mb-4">
@@ -30,8 +49,8 @@ function PostCard({ _id, userId, name, description, picturePath, userPicturePath
             </div>
             <div className="bottom-icons flex justify-between text-blue-800 px-8">
                 <div className="likes flex justify-between items-center">
-                    <span className={`material-symbols-outlined hover:text-blue-400 cursor-pointer ${isLike ? "text-blue-400" : ""}`} onClick={() => setIsLike(isLike ? false : true)}>thumb_up</span>
-                    <p className="ml-2">{likes}</p>
+                    <span className={`material-symbols-outlined hover:text-blue-400 cursor-pointer ${isLiked ? "text-blue-400" : ""}`} onClick={updateLike}>thumb_up</span>
+                    <p className="ml-2">{likesCount}</p>
                 </div>
                 <div className="likes flex justify-between items-center">
                     <span className="material-symbols-outlined hover:text-blue-400 cursor-pointer">comment</span>

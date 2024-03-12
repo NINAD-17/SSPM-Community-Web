@@ -12,6 +12,9 @@ import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
 import userRoutes from "./routes/users.js";
+import User from "./models/User.js";
+import Post from "./models/Post.js";
+import { users, posts } from "./data/index.js";
 
 // Configurations
 // -- Path
@@ -35,5 +38,8 @@ const PORT = 3000;
 mongoose.connect(process.env.MONGO_URL)
     .then(() => {
         app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+
+    // User.insertMany(users);
+    // Post.insertMany(posts);
     })
     .catch((error) => console.log(`{error} \n:( Unable to connect!`));

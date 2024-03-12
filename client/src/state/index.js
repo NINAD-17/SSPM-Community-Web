@@ -21,9 +21,20 @@ export const authSlice = createSlice({
         },
         setPosts: (state, action) => {
             state.posts = action.payload.posts;
+        },
+        setPost: (state, action) => {
+            // After user like the post
+            const updatedPost = state.posts.map((post) => {
+                if(post._id === action.payload.post._id) return action.payload.post
+                return post;
+            });
+            state.posts = updatedPost;
+        },
+        setFriends: (state, action) => {
+            
         }
     }
 });
 
-export const { setTheme, setLogin, setLogout, setPosts } = authSlice.actions;
+export const { setTheme, setLogin, setLogout, setPosts, setPost } = authSlice.actions;
 export default authSlice.reducer;
