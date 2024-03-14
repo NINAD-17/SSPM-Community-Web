@@ -31,10 +31,16 @@ export const authSlice = createSlice({
             state.posts = updatedPost;
         },
         setFriends: (state, action) => {
-            
+            if(state.user)
+                state.user.friends = action.payload.friends;
+            else    
+                console.error("User friends not exist");
+        },
+        setUpdatedProfile: (state, action) => {
+            state.user = action.payload.user
         }
     }
 });
 
-export const { setTheme, setLogin, setLogout, setPosts, setPost } = authSlice.actions;
+export const { setTheme, setLogin, setLogout, setPosts, setPost, setFriends, setUpdatedProfile } = authSlice.actions;
 export default authSlice.reducer;

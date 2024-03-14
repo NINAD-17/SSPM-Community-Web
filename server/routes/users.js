@@ -2,7 +2,8 @@ import express from "express";
 import {
     getUser,
     getUserFriends,
-    addRemoveFriend
+    addRemoveFriend,
+    updateProfile
 } from "../controllers/users.js";
 
 const router = express.Router();
@@ -13,5 +14,6 @@ router.get("/:id/friends", getUserFriends);
 
 // Update Routes:
 router.patch("/:id/:friendId", addRemoveFriend);
+router.patch("/:id/update-profile", updateProfile);
 
 export default router;

@@ -4,6 +4,7 @@ import CreatePostBox from "../../components/CreatePostBox";
 import Groups from "../../components/Groups";
 import { useSelector } from "react-redux";
 import Posts from "../../components/Posts";
+import FriendsList from "../../components/FriendsList";
 
 const HomePage = () => {
     const { _id } = useSelector((state) => state.user);
@@ -15,6 +16,7 @@ const HomePage = () => {
                 <div className="sm:col-span-4 lg:col-span-3 rounded-xl">
                     {/* Left */}
                     <ProfileCard userId={_id} />
+                    {/* <FriendsList /> */}
                 </div>
                 <div className="sm:col-span-8 lg:col-span-6 rounded-xl">
                     {/* Middle */}
@@ -25,6 +27,7 @@ const HomePage = () => {
                 <div className="hidden lg:block lg:col-span-3 rounded-xl">
                     {/* Right */}
                     <Groups />
+                    <FriendsList userId={_id} />
                 </div>
             </div>
         </>

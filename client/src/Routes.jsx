@@ -8,8 +8,10 @@ import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage"
 import NotFound from "./pages/NotFound"
 import Navbar from "./components/Navbar"
+import FindFriends from "./pages/FindFriends"
 const ProfilePage = React.lazy(() => import("./pages/ProfilePage"))
 const CommentPage = React.lazy(() => import("./pages/CommentPage"))
+const EditProfile = React.lazy(() => import("./pages/EditProfile"))
 // ** Use react.lazy while importing all the pages to optimize the performance
 
 const routes = () => {
@@ -23,6 +25,8 @@ const routes = () => {
                 <Route path="/profile/:userId" element={<ProfilePage />} />
                 <Route path="/comments" element={<CommentPage />} />
                 <Route path="/nav" element={<Navbar />} />
+                <Route path="/friends" element={<FindFriends />} />
+                <Route path="/:userId/edit" element={<EditProfile />} />
                 {/* groupPostsPage */}
                 {/* ... Think about more pages */}
                 <Route path="/404" element={<NotFound />} />

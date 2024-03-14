@@ -40,7 +40,7 @@ function PostCard({ postId, userId, name, description, picturePath, userPictureP
                     { description }
                 </div>
                 {picturePath ? 
-                    <div className="post-img my-3 overflow-hidden">
+                    <div className="post-img my-3 overflow-hidden object-cover w-full">
                         <img className="rounded object-cover" src={picturePath} alt="" />
                     </div>
                     : <></>

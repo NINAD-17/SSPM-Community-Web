@@ -47,6 +47,10 @@ const UserSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
+    friends: {
+      type: Array,
+      default: [],
+    },
     branch: String,
     workingAt: String,
     viewedProfile: Number,

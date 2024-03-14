@@ -40,7 +40,7 @@ export const addRemoveFriend = async (req, res) => {
         const user = await User.findById(id);
         const friend = await User.findById(friendId);
 
-        if(user.friend.includes(friendId)) {
+        if(user.friends.includes(friendId)) {
             user.friends = user.friends.filter((id) => id !== friendId);
             friend.friends = friend.friends.filter((id) => id !== id);
         } else {
@@ -56,12 +56,34 @@ export const addRemoveFriend = async (req, res) => {
         );
 
         const formattedFriends = friends.map(
-            ({ _id, firstName, lastName, occupation, location, picturePath }) => {
-                return { _id, firstName, lastName, occupation, location, picturePath };
+            ({ _id, firstName, lastName, picturePath }) => {
+                return { _id, firstName, lastName, picturePath };
             });
 
         res.status(200).json(formattedFriends);
     } catch(error) {
         res.status(404).json({ message: error.message });
+    }
+}
+
+export const updateProfile = async(req, res) => {
+    try {
+        const { id } = req.params;
+        console.log(id)
+        const { picturePath, headline, about } = req.body;
+
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        user.picturePath = picturePath;
+        user.headline = headline;
+        user.about = about;
+
+        const userUpdate = await user.save();
+        res.status(200).json({userUpdate});
+    } catch(error) {
+        res.status(500).json({ message: 'An error occurred while updating the profile' });
     }
 }

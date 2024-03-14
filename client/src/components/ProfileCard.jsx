@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const ProfileCard = ({ userId }) => {
 
     const [ user, setUser ] = useState(null);
     const navigate = useNavigate();
+    const loggedInUser = useSelector(state => state.user._id);
 
     const getUser = async() => {
         const response = await fetch(`http://localhost:3000/users/${userId}`, {
@@ -48,6 +50,15 @@ const ProfileCard = ({ userId }) => {
                         <p>100</p>
                     </div>
                     <hr className="border-blue-400 my-3" />
+                    {
+                        userId === loggedInUser ?
+                            <div className="flex justify-center items-center text-blue-700 hover:text-blue-400 cursor-pointer" onClick={() => navigate(`/${userId}/edit`)}>
+                                <p className="text-center">Edit Profile </p>
+                                <span className="material-symbols-outlined text-base ml-1">edit</span>
+                            </div> 
+                        : <></>
+                    }
+                    
                 </div>
             </div>
         </>

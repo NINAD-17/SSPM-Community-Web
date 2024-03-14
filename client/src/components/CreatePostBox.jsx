@@ -36,7 +36,7 @@ function CreatePostBox() {
     }
 
     return (
-        <div className="p-6 pb-3 bg-white rounded-xl">
+        <div className="p-6 pb-3 bg-white rounded-xl mb-4">
             <div className={`${isPostCreationOn ? "hidden" : ""}`} >
                 <div className="flex justify-between">
                     <img className="h-12 w-12 rounded-full mr-2 object-cover" src={user.picturePath !== "" ? user.picturePath : "../../user.png"} alt="" />

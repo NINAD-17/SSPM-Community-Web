@@ -6,7 +6,7 @@ function Navbar() {
     const user = useSelector(state => state.user);
     
     return (
-        <nav className="fixed top-0 z-0 bg-white w-full h-16 flex justify-between items-center p-6 border-b border-blue-200">
+        <nav className="fixed top-0 z-10 bg-white w-full h-16 flex justify-between items-center p-6 border-b border-blue-200">
             <div className="left flex items-center">
                 <div className="logo font-bold text-2xl sm:text-3xl cursor-pointer text-blue-600">SSPM COMMUNITY</div>
                 <div className="hidden md:block ml-3">
