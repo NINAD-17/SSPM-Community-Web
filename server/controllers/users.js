@@ -42,10 +42,10 @@ export const addRemoveFriend = async (req, res) => {
 
         if(user.friends.includes(friendId)) {
             user.friends = user.friends.filter((id) => id !== friendId);
-            friend.friends = friend.friends.filter((id) => id !== id);
+            friend.friends = friend.friends.filter((fId) => fId !== id);
         } else {
             user.friends.push(friendId);
-            friend.friends.push(_id);
+            friend.friends.push(id);
         }
 
         await user.save();
@@ -67,14 +67,15 @@ export const addRemoveFriend = async (req, res) => {
 }
 
 export const updateProfile = async(req, res) => {
+    const { _id } = req.params;
     try {
-        const { id } = req.params;
-        console.log(id)
+        const { _id } = req.params;
+        console.log(_id)
         const { picturePath, headline, about } = req.body;
 
-        const user = await User.findById(id);
+        const user = await User.findById(_id);
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'User not found', _id });
         }
 
         user.picturePath = picturePath;
@@ -82,8 +83,8 @@ export const updateProfile = async(req, res) => {
         user.about = about;
 
         const userUpdate = await user.save();
-        res.status(200).json({userUpdate});
+        res.status(200).json({userUpdate, _id});
     } catch(error) {
-        res.status(500).json({ message: 'An error occurred while updating the profile' });
+        res.status(500).json({ message: 'An error occurred while updating the profile', id: id });
     }
 }

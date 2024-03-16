@@ -14,6 +14,6 @@ router.get("/:id/friends", getUserFriends);
 
 // Update Routes:
 router.patch("/:id/:friendId", addRemoveFriend);
-router.patch("/:id/update-profile", updateProfile);
+router.patch("/edit-profile/:id", updateProfile);
 
 export default router;

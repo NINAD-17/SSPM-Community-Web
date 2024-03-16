@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { setPost } from "../state";
 
 function PostCard({ postId, userId, name, description, picturePath, userPicturePath, likes }) {
-    console.log({postId}, {userId});
+    // console.log({postId}, {userId});
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const loggedInUserId = useSelector((state) => state.user._id);
-    console.log({loggedInUserId});
+    // console.log({loggedInUserId});
     const isLiked = Boolean(likes[loggedInUserId]);
     const likesCount = Object.keys(likes).length;
-    console.log({likes});
+    // console.log({likes});
 
     const updateLike = async() => {
         const id = postId;

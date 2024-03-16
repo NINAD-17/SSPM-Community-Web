@@ -9,10 +9,12 @@ const FriendsList = ({ userId }) => {
     console.log({friends})
 
     const getFriends = async() => {
-        const response = await fetch(`http://localhost:3000/${ userId }/friends`, {
+        const response = await fetch(`http://localhost:3000/users/${ userId }/friends`, {
             method: "GET"
         });
+        console.log({response});
         const friends = await response.json();
+        console.log("Formatted Friends: ", friends);
 
         dispatch(setFriends({ friends }));
     }
@@ -26,18 +28,19 @@ const FriendsList = ({ userId }) => {
             <div className="bg-white rounded-xl my-4 py-4">
             <h1 className="text-lg font-semibold mx-4 mb-2">Friends</h1>
             {   friends ? 
-                friends.map((friend) => (
+                friends.map((friend) => {
+                    console.log("friends: ", {friends});
+                    console.log("map friends: ", {friend});
+                    return (
                     <FriendCard
                         key={friend._id}
                         friendId={friend._id}
                         name={`${friend.firstName} ${friend.lastName}`}
                         friendPicture={friend.picturePath}
-                    />
-                ))
+                    />)
+                })
                 : <></>
             }
-            <FriendCard />
-            <FriendCard />
         </div>
         </>
     )

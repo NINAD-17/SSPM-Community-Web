@@ -6,7 +6,7 @@ import PostCard from "./PostCard";
 const Posts = ({ userId, isProfile = false }) => {
     const dispatch = useDispatch();
     const posts = useSelector(state => state.posts);
-    console.log("redux posts: ", posts);
+    // console.log("redux posts: ", posts);
     
     const getfeedPosts = async() => {
         const response = await fetch(`http://localhost:3000/posts`, {
@@ -37,7 +37,7 @@ const Posts = ({ userId, isProfile = false }) => {
         }
     }, []);
 
-    console.log({posts})
+    // console.log({posts})
 
     return (
         <>
