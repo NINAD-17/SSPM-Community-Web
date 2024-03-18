@@ -77,8 +77,13 @@ const ProfileCard = ({ userId }) => {
                 <div className="text-base sm:text-sm lg:text-base">
                     <h3 className="font-semibold text-gray-900">Social Profiles</h3>
                     <ul>
-                        <li className=""><a className="cursor-pointer hover:underline text-gray-700 hover:text-blue-400" href="">Github</a></li>
-                        <li className=""><a className="cursor-pointer hover:underline text-gray-700 hover:text-blue-400" href="">LinkedIn</a></li>
+                        { 
+                            user.socialHandles.length > 0 ? 
+                                user.socialHandles.map((handle) => (
+                                    <li key={handle.url} className=""><a className="cursor-pointer hover:underline text-gray-700 hover:text-blue-400" href={handle.url} target="_blank">{handle.name}</a></li>
+                                ))
+                            : <></>
+                        }
                     </ul>
                 </div>
                 <hr className="border-blue-400 my-2" />

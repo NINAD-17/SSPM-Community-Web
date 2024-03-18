@@ -1,13 +1,15 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setPost } from "../state";
+import { setFriends, setPost } from "../state";
 
 function PostCard({ postId, userId, name, description, picturePath, userPicturePath, likes }) {
     // console.log({postId}, {userId});
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const loggedInUserId = useSelector((state) => state.user._id);
+    const loggedInUser = useSelector((state) => state.user);
+    const loggedInUserId = loggedInUser._id;
+    const [ isFriend, setIsFriend ] = useState(false);
     // console.log({loggedInUserId});
     const isLiked = Boolean(likes[loggedInUserId]);
     const likesCount = Object.keys(likes).length;
@@ -26,14 +28,49 @@ function PostCard({ postId, userId, name, description, picturePath, userPictureP
         dispatch(setPost({ post: updatedPost }));
     }
 
+    const patchFriend = async() => {
+        const response = await fetch(`http://localhost:3000/users/${loggedInUserId}/${userId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        const data = await response.json();
+        dispatch(setFriends({ friends: data }));
+    }
+
+    useEffect(() => {
+       setIsFriend(loggedInUser.friends.some((friend) => friend._id === userId)) 
+    }, [loggedInUser.friends, userId]);
+
     return (
         <div className="bg-white p-6 shadow rounded-xl mb-4">
-            <div className="flex items-center space-x-2">
-                <img className="h-12 w-12 rounded-full mr-2 object-cover" src={userPicturePath ? userPicturePath : "../../user.png"} alt="" />
-                <div>
-                    <h2 className="font-semibold text-md hover:underline cursor-pointer" onClick={() => navigate(`/profile/${userId}`)} >{ name }</h2>
-                    <p className="text-gray-500 text-sm">7 hr</p>
+            <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                    <img className="h-12 w-12 rounded-full mr-2 object-cover" src={userPicturePath === '' || userPicturePath === undefined ? "../../user.png" : userPicturePath } alt="" />
+                    <div className="">
+                        <h2 className="font-semibold text-md hover:underline cursor-pointer" onClick={() => navigate(`/profile/${userId}`)} >{ name }</h2>
+                        <p className="text-gray-500 text-sm">7 hr</p>
+                    </div>
                 </div>
+
+                {
+                    loggedInUser._id === userId ? (
+                        <div className="cursor-pointer bg-blue-100 rounded-full p-1">
+                            <span className="material-symbols-outlined text-xl">more_vert</span>
+                        </div>
+                    )
+                    : (
+                        <div onClick={patchFriend} className=" cursor-pointer bg-blue-100 rounded-full p-1">
+                        {
+                        isFriend ? (
+                            <span className="material-symbols-outlined text-xl">person_remove</span>
+                        ) : (
+                            <span className="material-symbols-outlined text-xl">person_add</span>
+                        )}
+                        </div>
+                    )
+                }
             </div>
             <div className="my-3">
                 <div className="description">

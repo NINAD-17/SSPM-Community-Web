@@ -3,11 +3,13 @@ import Navbar from '../../components/Navbar';
 import { useState } from 'react';
 import { setUpdatedProfile } from "../../state"
 import { LegendToggleTwoTone } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 const EditProfile = () => {
     const loggedInUser = useSelector(state => state.user);
     const loggedInUserId = loggedInUser._id;
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     // const [picture, setPicture] = useState(loggedInUser.picturePath);
     const [headline, setHeadline] = useState(loggedInUser.headline);
     const [about, setAbout] = useState(loggedInUser.about);
@@ -41,6 +43,7 @@ const EditProfile = () => {
         const updatedprofile = await response.json();
         console.log({updatedprofile});
         dispatch(setUpdatedProfile({ user: updatedprofile }));
+        navigate(`/profile/${id}`);
     }
 
     return (
@@ -78,15 +81,22 @@ const EditProfile = () => {
                     <div className="mt-5">
                         <label className="block sm:flex sm:flex-row text-sm font-semibold m-2" htmlFor="usertype">Status</label>
                         <input className="bg-gray-50 w-full font-sm outline-blue-400 rounded-xl px-3 py-2" type="text" value={status} onChange={(e) => setStatus(e.target.value)}  name="usertype" />
-                    </div>
-                    <div className="mt-5">
-                        <label className="block sm:flex sm:flex-row text-sm font-semibold m-2" htmlFor="workingAt">Working At</label>
-                        <input className="bg-gray-50 w-full font-sm outline-blue-400 rounded-xl px-3 py-2" type="text" value={workingAt} onChange={(e) => setWorkingAt(e.target.value)}  name="workingAt" />
-                    </div>
+                    </div> 
+                    {
+                        loggedInUser.status === "Student" ? 
+                        <></>
+                        :
+                        <div className="mt-5">
+                            <label className="block sm:flex sm:flex-row text-sm font-semibold m-2" htmlFor="workingAt">Working At</label>
+                            <input className="bg-gray-50 w-full font-sm outline-blue-400 rounded-xl px-3 py-2" type="text" value={workingAt} onChange={(e) => setWorkingAt(e.target.value)}  name="workingAt" />
+                        </div>
+                    }
                     {/* <div className="mt-5">
                         <label className="block sm:flex sm:flex-row text-sm font-semibold m-2" htmlFor="usertype">Status</label>
                         <input className="bg-gray-50 w-full font-sm outline-blue-400 rounded-xl px-3 py-2" type="text" value={gradYear} onChange={(e) => setGradYear(e.target.value)}  name="usertype" />
                     </div> */}
+
+                    {/* add social handles */}
                     <button type="submit" className="w-full bg-blue-800 p-2 rounded-xl mt-7 text-white hover:bg-blue-500">Update Profile</button>
                 </form>
             </div>

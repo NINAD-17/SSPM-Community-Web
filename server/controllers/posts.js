@@ -13,13 +13,14 @@ export const createPost = async(req, res) => {
             lastName: user.lastName,
             description,
             picturePath,
+            userPicturePath: user.picturePath,
             likes: {},
             comment: []
         });
 
         await newPost.save(); // Saving new post in database
 
-        const post = await Post.find();  // Once we add the post we need all posts to be returned to the frontend
+        const post = await Post.find().sort({ createdAt: -1 });  // Once we add the post we need all posts to be returned to the frontend
         res.status(201).json(post);
     } catch(error) {
         res.status(409).json({ message: error.message });
@@ -29,7 +30,7 @@ export const createPost = async(req, res) => {
 // READ
 export const getFeedPosts = async(req, res) => {
     try {
-        const posts = await Post.find();
+        const posts = await Post.find().sort({ createdAt: -1 }); // -1 for decending order
         res.status(200).json(posts);
     } catch(error) {
         res.status(500).json({ message: error.message });
@@ -39,7 +40,7 @@ export const getFeedPosts = async(req, res) => {
 export const getUserPosts = async(req, res) => {
     try {
         const { userId } = req.params;
-        const posts = await Post.find({ userId }); // Finding all posts of that particular user
+        const posts = await Post.find({ userId }).sort({ createdAt: -1 }); // Finding all posts of that particular user
 
         res.status(200).json(posts);
     } catch(error) {

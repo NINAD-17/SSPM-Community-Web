@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import Posts from "../../components/Posts";
 import FriendsList from "../../components/FriendsList";
 import ThreeCard from "../../components/ThreeCard";
+import Footer from "../../components/Footer";
 
 const HomePage = () => {
     const { _id } = useSelector((state) => state.user);
@@ -18,6 +19,9 @@ const HomePage = () => {
                 <div className="sm:col-span-4 lg:col-span-3 rounded-xl">
                     {/* Left */}
                     <ProfileCard userId={_id} />
+                    <div className="hidden sm:block">
+                    <Footer />
+                    </div>
                     {/* <FriendsList /> */}
                 </div>
                 <div className="sm:col-span-8 lg:col-span-6 rounded-xl">

@@ -19,7 +19,8 @@ export const register = async (req, res) => {
             friends,
             branch,
             status,
-            workingAt
+            workingAt,
+            socialHandles
         } = req.body; // Destructuring parameters from req.body. It's all data from the registration form.
 
         // Encrypting the password
@@ -41,6 +42,7 @@ export const register = async (req, res) => {
             branch,
             status,
             workingAt,
+            socialHandles,
             viewedProfile: 0,
             impressions: 0
         });

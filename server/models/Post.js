@@ -27,5 +27,9 @@ const PostSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
+// NOTE: Search about index in mongodb. Search why --> creating an index can take some time if you have a lot of documents in your collection. It’s usually best to create indexes during periods of low load or during maintenance windows.
+// Create an index on the 'createdAt' field
+PostSchema.index({ createdAt: -1 }); 
+
 const Post = mongoose.model("Post", PostSchema);
 export default Post;

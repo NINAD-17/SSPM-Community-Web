@@ -8,7 +8,7 @@ const ProfileInfo = ({ email, about, socialHandles = [], workingAt, status }) =>
                 <p className="text-gray-700 text-base">{about}</p>
             </div>
             {
-                status === "student" ? <></> 
+                status === "Student" ? <></> 
                 : 
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-base text-gray-900">Working At </h2>
@@ -19,18 +19,18 @@ const ProfileInfo = ({ email, about, socialHandles = [], workingAt, status }) =>
                 <h2 className="font-semibold text-base text-gray-900">Contact </h2>
                 <p className="font-semibold text-blue-500 cursor-pointer hover:underline">{email}</p>
             </div>
-            <div className="">
+            <div className="flex justify-between">
                 {
                     socialHandles.length === 0 ? <></>
                     :
                     <>
                         <h2 className="font-semibold text-base text-gray-900">Social Handles </h2>
-                        <ul>
+                        <ul className="font-semibold">
                             {
                                 socialHandles.map((link) => {
                                     return (
 
-                                        <li key={link.url}><a href={link.url}>{link.name}</a></li>
+                                        <li className="text-blue-500 text-base hover:text-blue-400 hover:underline" key={link.url}><a href={link.url} target="_blank">{link.name}</a></li>
                                     )
                                 })
                             }

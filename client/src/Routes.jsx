@@ -18,7 +18,7 @@ const routes = () => {
     return (
         // **** Include line for react.suspense here to show loader.
         <Router>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div className="flex justify-center items-center h-dvh"><img src="../loading.gif" alt="" /></div>}>
             <Routes>
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/home" element={<HomePage />} />
@@ -28,6 +28,7 @@ const routes = () => {
                 <Route path="/friends" element={<FindFriends />} />
                 <Route path="/:userId/edit" element={<EditProfile />} />
                 {/* groupPostsPage */}
+                
                 {/* ... Think about more pages */}
                 <Route path="/404" element={<NotFound />} />
             </Routes>
