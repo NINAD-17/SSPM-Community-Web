@@ -40,21 +40,22 @@ const UserSchema = new mongoose.Schema({
     skillSet: {
         type: Array
     },
-    gradYear: {
-        Type: Date
-    },
-    connections: {
-        type: Array,
-        default: []
-    },
+    gradYear: String,
     friends: {
       type: Array,
       default: [],
     },
     branch: String,
+    status: String,
     workingAt: String,
-    viewedProfile: Number,
-    impressions: Number
+    viewedProfile: Number, 
+    impressions: Number,
+    socialHandles: [
+        {
+            name: {type: String},
+            url: {type: String}
+        }
+    ]
 }, { timestamps: true }); // 'timestamps: true' will give us automatic dates for when it's created and updated
 
 const User = mongoose.model("User", UserSchema); // Creating User collection (table) with the User schema

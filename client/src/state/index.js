@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     theme: "light",
+    mobContent: "posts",
     user: null,
     posts: []
 }
@@ -38,9 +39,12 @@ export const authSlice = createSlice({
         },
         setUpdatedProfile: (state, action) => {
             state.user = action.payload.user
+        },
+        setMobContent: (state, action) => {
+            state.mobContent = action.payload.mobContent
         }
     }
 });
 
-export const { setTheme, setLogin, setLogout, setPosts, setPost, setFriends, setUpdatedProfile } = authSlice.actions;
+export const { setTheme, setLogin, setLogout, setPosts, setPost, setFriends, setUpdatedProfile, setMobContent } = authSlice.actions;
 export default authSlice.reducer;

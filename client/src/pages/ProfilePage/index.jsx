@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import FriendsList from "../../components/FriendsList";
 import { useSelector } from "react-redux";
 import CreatePostBox from "../../components/CreatePostBox";
+import ProfileInfo from "../../components/ProfileInfo";
 
 const ProfilePage = () => {
     const [ user, setUser ] = useState(null);
@@ -16,7 +17,8 @@ const ProfilePage = () => {
         const response = await fetch(`http://localhost:3000/users/${userId}`, {
             method: "GET",
         });
-        const data = response.json();
+        const data = await response.json();
+        console.log({data});
 
         setUser(data);
     }
@@ -26,6 +28,8 @@ const ProfilePage = () => {
     }, []);
 
     if(!user) return null;
+
+    console.log("about", user.about);
 
     return (
         <>
@@ -37,6 +41,7 @@ const ProfilePage = () => {
                         {/* <FriendsList userId={userId} /> */}
                     </div>
                     <div className="sm:col-span-7 md:col-span-8">
+                        <ProfileInfo email={user.email} about={user.about} socialHandles={user.socialHandles} workingAt={user.workingAt} status={user.status} />
                         { userId === loggedInUser._id ? <CreatePostBox /> : <></> }
                         <Posts userId={userId} isProfile={true} />
                     </div>

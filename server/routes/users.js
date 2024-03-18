@@ -8,12 +8,13 @@ import {
 
 const router = express.Router();
 
-// Read Routes: Routes from which grab information and not saving anything to database
-router.get("/:id", getUser);
-router.get("/:id/friends", getUserFriends);
+// NOTE: make sure that the more specific routes come before the more general routes.
+// Otherwise it will give you errors sometime. As I've defined patch (/:id/edit) at last, it gave me error which took hours to solve that error.
 
-// Update Routes:
+router.patch("/:id/edit", updateProfile);
 router.patch("/:id/:friendId", addRemoveFriend);
-router.patch("/edit-profile/:id", updateProfile);
+
+router.get("/:id/friends", getUserFriends);
+router.get("/:id", getUser);
 
 export default router;

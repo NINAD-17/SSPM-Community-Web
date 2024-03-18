@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import User from "../models/User.js";
 
 // READ
@@ -66,25 +67,31 @@ export const addRemoveFriend = async (req, res) => {
     }
 }
 
-export const updateProfile = async(req, res) => {
-    const { _id } = req.params;
-    try {
-        const { _id } = req.params;
-        console.log(_id)
-        const { picturePath, headline, about } = req.body;
+export const updateProfile = async (req, res) => {
 
-        const user = await User.findById(_id);
-        if (!user) {
-            return res.status(404).json({ message: 'User not found', _id });
+    try {
+        const { id } = req.params;
+        const { headline, about, gradYear, status, branch, workingAt } = req.body;
+
+        // Find the user and update the document
+        const updatedUser = await User.findByIdAndUpdate(id, {
+            headline,
+            about,
+            gradYear,
+            status,
+            branch,
+            workingAt
+        }, { new: true }); // 'new: true' returns the updated document
+
+        // If the user was not found, send a 404 response
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
         }
 
-        user.picturePath = picturePath;
-        user.headline = headline;
-        user.about = about;
-
-        const userUpdate = await user.save();
-        res.status(200).json({userUpdate, _id});
-    } catch(error) {
-        res.status(500).json({ message: 'An error occurred while updating the profile', id: id });
+        // Send the updated user as the response
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        // If an error occurred, send a 500 response
+        res.status(500).json({ message: 'An error occurred while updating the profile', error: error.message });
     }
 }

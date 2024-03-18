@@ -16,7 +16,9 @@ export const register = async (req, res) => {
             about,
             skillSet,
             gradYear,
-            connections,
+            friends,
+            branch,
+            status,
             workingAt
         } = req.body; // Destructuring parameters from req.body. It's all data from the registration form.
 
@@ -35,7 +37,9 @@ export const register = async (req, res) => {
             about,
             skillSet,
             gradYear,
-            connections,
+            friends,
+            branch,
+            status,
             workingAt,
             viewedProfile: 0,
             impressions: 0

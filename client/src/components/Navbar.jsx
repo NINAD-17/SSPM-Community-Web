@@ -6,6 +6,7 @@ function Navbar() {
     const dispatch = useDispatch();
     const [ isProfileHover, setProfileHover ] = useState(false);
     const user = useSelector(state => state.user);
+    const [isMenuOpen, setIsMenuOpen] = useState(false); 
     const theme = useSelector(state => state.theme);
     const [ isDark, setIsDark ] = useState(theme === "dark" ? true : false);
 
@@ -25,7 +26,7 @@ function Navbar() {
                 </div>
             </div>
             <div className="right">
-                <ul className="hidden sm:flex space-x-4 text-lg text-blue-800">
+                <ul className={`${isMenuOpen ? "flex-col" : "hidden"} sm:flex space-x-4 text-lg text-blue-800`} >
                     <li className="cursor-pointer hidden md:hidden sm:flex sm:flex-col sm:items-center hover:text-blue-400">
                         <span className="material-symbols-outlined">search</span>
                         <h3 className="text-xs xl:text-sm mt-0.5">Search</h3>

@@ -54,7 +54,7 @@ function PostCard({ postId, userId, name, description, picturePath, userPictureP
                 </div>
                 <div className="likes flex justify-between items-center">
                     <span className="material-symbols-outlined hover:text-blue-400 cursor-pointer">comment</span>
-                    <p className="ml-2">77</p>
+                    <p className="ml-2">0</p>
                 </div>
                 
                 <div className="share">
