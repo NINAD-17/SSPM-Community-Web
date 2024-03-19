@@ -35,7 +35,7 @@ const ProfilePage = () => {
         <>
             <Navbar />
             <div className="">
-                <div className="mt-16  bg-blue-50 grid sm:grid-cols-12 max-w-7xl gap-3 p-3 sm:p-3 md:p-4 lg:px-24 xl:p-36">
+                <div className="mt-16  bg-blue-50 grid sm:grid-cols-12 max-w-7xl gap-3 p-3 sm:p-3 md:p-4 lg:px-24 xl:px-36">
                     <div className="sm:col-span-5 md:col-span-4 rounded-xl">
                         <ProfileCard userId={userId} />
                         {/* <FriendsList userId={userId} /> */}

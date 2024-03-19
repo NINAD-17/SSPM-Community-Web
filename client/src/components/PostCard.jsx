@@ -61,7 +61,7 @@ function PostCard({ postId, userId, name, description, picturePath, userPictureP
                         </div>
                     )
                     : (
-                        <div onClick={patchFriend} className=" cursor-pointer bg-blue-100 rounded-full p-1">
+                        <div onClick={patchFriend} className={`cursor-pointer bg-blue-100 ${isFriend ? "hover:bg-red-400 hover:text-white" : "hover:bg-blue-400 hover:text-white"} rounded-full p-1`} >
                         {
                         isFriend ? (
                             <span className="material-symbols-outlined text-xl">person_remove</span>
