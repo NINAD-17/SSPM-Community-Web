@@ -17,6 +17,10 @@ const GroupSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }],
+    admins: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     groupPosts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "GroupPost"
