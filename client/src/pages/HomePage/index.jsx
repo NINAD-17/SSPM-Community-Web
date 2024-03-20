@@ -33,7 +33,8 @@ const HomePage = () => {
                         <Posts userId={_id} />
                     </div>
 
-                    {
+                    <div className="lg:hidden">
+                        {
                         (mobContent === "posts") 
                         ? 
                             <Posts userId={_id} />
@@ -41,8 +42,11 @@ const HomePage = () => {
                         mobContent === "friends" 
                         ? 
                             <FriendsList userId={_id} /> 
-                        : <Groups />
+                        : mobContent === "groups" ?
+                            <Groups userId={_id} />
+                        : <></>
                     }
+                    </div>
                 </div>
                 <div className="hidden lg:block lg:col-span-3 rounded-xl">
                     {/* Right */}

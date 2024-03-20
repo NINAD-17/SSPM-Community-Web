@@ -6,14 +6,14 @@ import PostCard from "./PostCard";
 const Posts = ({ userId, isProfile = false }) => {
     const dispatch = useDispatch();
     const posts = useSelector(state => state.posts);
-    console.log("redux posts: ", posts);
+    // console.log("redux posts: ", posts);
     
     const getfeedPosts = async() => {
         const response = await fetch(`http://localhost:3000/posts`, {
             method: "GET"
         });
         const feedPosts = await response.json();
-        console.log({feedPosts})
+        // console.log({feedPosts})
 
         dispatch(setPosts({ posts: feedPosts }));
     }
@@ -36,7 +36,7 @@ const Posts = ({ userId, isProfile = false }) => {
             getUserPosts();
             console.log("user posts called")
         }
-    }, [isProfile]);
+    }, []);
 
     // console.log({posts})
 

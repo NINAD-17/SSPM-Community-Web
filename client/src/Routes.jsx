@@ -18,7 +18,7 @@ const routes = () => {
     return (
         // **** Include line for react.suspense here to show loader.
         <Router>
-            <Suspense fallback={<div className="flex justify-center items-center h-dvh"><img src="../loading.gif" alt="" /></div>}>
+            <Suspense fallback={<div className="flex justify-center items-center h-dvh"><img className="h-20 w-20" src="../loading_blue.gif" alt="" /></div>}>
             <Routes>
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/home" element={<HomePage />} />
