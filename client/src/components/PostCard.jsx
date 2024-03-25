@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setFriends, setPost } from "../state";
+import { setFriends, setPost, setPosts } from "../state";
 
 function PostCard({ postId, userId, name, description, picturePath, userPicturePath, likes }) {
     // console.log({postId}, {userId});
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const loggedInUser = useSelector((state) => state.user);
+    const posts = useSelector((state) => state.posts)
     const loggedInUserId = loggedInUser._id;
+    const [ isMoreVertOn, setIsMoreVertOn ] = useState(false);
     const [ isFriend, setIsFriend ] = useState(false);
     // console.log({loggedInUserId});
     const isLiked = Boolean(likes[loggedInUserId]);
@@ -39,6 +41,22 @@ function PostCard({ postId, userId, name, description, picturePath, userPictureP
         dispatch(setFriends({ friends: data }));
     }
 
+    const deletePost = async () => {
+        const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ userId: loggedInUserId })
+        });
+
+        console.log(response);
+        if (response.status === 200) {
+            const updatedPosts = posts.filter((post) => post._id !== postId)
+            dispatch(setPosts({ posts: updatedPosts }))
+        }
+    }
+
     useEffect(() => {
        setIsFriend(loggedInUser.friends.some((friend) => friend._id === userId)) 
     }, [loggedInUser.friends, userId]);
@@ -56,8 +74,18 @@ function PostCard({ postId, userId, name, description, picturePath, userPictureP
 
                 {
                     loggedInUser._id === userId ? (
-                        <div className="cursor-pointer bg-blue-100 rounded-full p-1">
-                            <span className="material-symbols-outlined text-xl">more_vert</span>
+                        <div className="relative">
+                            <div className="cursor-pointer bg-blue-100 rounded-full p-1 hover:bg-blue-400 hover:text-white" onClick={() => setIsMoreVertOn(!isMoreVertOn)}>
+                                <span className="material-symbols-outlined text-xl">more_vert</span>
+                            </div>
+                            {
+                                isMoreVertOn ? 
+                                    <div className="absolute top-10 right-0 rounded-xl cursor-pointer hover:bg-red-400 hover:text-white bg-blue-100 w-36 py-2" onClick={deletePost}>
+                                        <h4 className="text-base text-center">Delete Post</h4>
+                                    </div>
+                                : <></>
+                            }
+                            
                         </div>
                     )
                     : (

@@ -26,7 +26,7 @@ function Groups() {
             <h1 className="text-lg font-semibold mx-4 mb-2">Groups</h1>
             { 
                 allGroups.map((group) => (
-                    <GroupCard key={group._id} name={group.name} totalMembers={group.members.length} groupLogo={group.logo} />
+                    <GroupCard key={group._id} name={group.name} totalMembers={group.members.length} groupLogo={group.groupPicturePath} />
                 ))
             }
         </div>

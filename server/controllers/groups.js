@@ -4,12 +4,14 @@ import Group from "../models/Group.js";
 // Create a group
 export const createGroup = async (req, res) => {
     try {
-        const { groupName, groupDescription, groupAdmin } = req.body; // Group Admin will be the one who create this group. Later on we can add or remove admins.
+        const { groupName, groupDescription, groupAdmin, groupPicturePath } = req.body; // Group Admin will be the one who create this group. Later on we can add or remove admins.
 
         const newGroup = new Group({
             name: groupName,
             description: groupDescription,
-            admins: [ groupAdmin ]
+            members: [ groupAdmin ],
+            admins: [ groupAdmin ],
+            groupPicturePath
         });
 
         const createdGroup = await newGroup.save();

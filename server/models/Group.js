@@ -24,7 +24,11 @@ const GroupSchema = new mongoose.Schema({
     groupPosts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "GroupPost"
-    }]
+    }],
+    groupPicturePath: {
+        type: String,
+        default: ""
+    },
 });
 
 const Group = mongoose.model("Group", GroupSchema);

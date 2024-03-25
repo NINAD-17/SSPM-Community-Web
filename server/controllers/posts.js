@@ -1,5 +1,24 @@
+// import {v2 as cloudinary} from 'cloudinary';
+// import multer from "multer";
 import Post from "../models/Post.js";
 import User from "../models/User.js";
+    
+// cloudinary.config({ 
+//   cloud_name: process.env.CLOUD_NAME, 
+//   api_key: process.env.CLOUD_KEY, 
+//   api_secret: process.env.CLOUD_SECRET
+// });
+
+// Multer
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, "public/posts/")
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, originalname)
+//     }
+// })
+// const upload = multer({ storage })
 
 // CREATE
 export const createPost = async(req, res) => {
@@ -72,5 +91,24 @@ export const likePost = async(req, res) => {
         res.status(200).json(updatedPost);
     } catch(error) {
         res.status(404).json({ message: error.message });
+    }
+}
+
+export const deletePost = async(req, res) => {
+    try {
+        const { postId } = req.params;
+        const { userId } = req.body;
+
+        const post = await Post.findById(postId);
+        if(post.userId !== userId) {
+            res.status(403).json({ message: "you're not valid user to remove this post!"})
+        }
+
+        await Post.deleteOne({ _id: postId });
+        // const posts = await Post.find().sort({ createdAt: -1 }); // -1 for decending order
+        res.status(200).json({ message: "post deleted" });
+
+    } catch(error) {
+        res.status(500).json({ message: error.message })
     }
 }

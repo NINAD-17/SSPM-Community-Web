@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage"
 import NotFound from "./pages/NotFound"
 import Navbar from "./components/Navbar"
 import FindFriends from "./pages/FindFriends"
+import GroupPage from "./pages/GroupPage"
 const ProfilePage = React.lazy(() => import("./pages/ProfilePage"))
 const CommentPage = React.lazy(() => import("./pages/CommentPage"))
 const EditProfile = React.lazy(() => import("./pages/EditProfile"))
@@ -28,6 +29,7 @@ const routes = () => {
                 <Route path="/friends" element={<FindFriends />} />
                 <Route path="/:userId/edit" element={<EditProfile />} />
                 {/* groupPostsPage */}
+                <Route path="/group" element={<GroupPage />} />
                 
                 {/* ... Think about more pages */}
                 <Route path="/404" element={<NotFound />} />
