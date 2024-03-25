@@ -25,9 +25,9 @@ const FriendCard = ({ friendId, name, friendPicture }) => {
 
     return (
         <>
-            <div className="px-6 py-3 flex items-center">
-    <img className="h-12 w-12 rounded-full mr-4 object-cover" src={friendPicture} alt="" />
-    <div className="flex items-center justify-between flex-grow">
+        <div className="px-6 py-3 flex items-center">
+        <img className="h-12 w-12 rounded-full mr-4 object-cover" src={friendPicture} alt="" />
+        <div className="flex items-center justify-between flex-grow">
         <div className="">
             <h2 className="group-name text-md font-semibold cursor-pointer hover:underline" onClick={() => navigate(`/profile/${friendId}`)}>
                 {name}

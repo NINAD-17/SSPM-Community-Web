@@ -29,7 +29,7 @@ const routes = () => {
                 <Route path="/friends" element={<FindFriends />} />
                 <Route path="/:userId/edit" element={<EditProfile />} />
                 {/* groupPostsPage */}
-                <Route path="/group" element={<GroupPage />} />
+                <Route path="/group/:groupId" element={<GroupPage />} />
                 
                 {/* ... Think about more pages */}
                 <Route path="/404" element={<NotFound />} />
