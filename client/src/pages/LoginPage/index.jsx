@@ -14,6 +14,8 @@ const LoginPage = () => {
     const [ password, setPassword ] = useState("");
     const [ fname, setFname ] = useState("");
     const [ lname, setLname ] = useState("");
+    const currYear = new Date().getFullYear();
+    const [ gradYear, setGradYear ] = useState("");
 
     const login = async() => {
         const data = { email, password, fname, lname };
@@ -120,6 +122,10 @@ const LoginPage = () => {
                             <div className="">
                                 <label htmlFor="password" className="block text-sm font-medium mb-2 lg:text-md">Password</label>
                                 <input type="password" name="password" value={password} onChange={(event) => setPassword(event.target.value)} className="mb-2 w-full outline-1 outline-blue-400 rounded-xl p-2 text-md" placeholder="Create a strong password (min 8 characters)" />
+                            </div>
+                            <div className="">
+                                <label htmlFor="gradYear" className="block text-sm font-medium mb-2 lg:text-md">Graduation Year</label>
+                                <input type="number" name="gradYear" min={2000} max={currYear + 4} value={gradYear} onChange={(event) => setGradYear(event.target.value)} className="mb-2 w-full outline-1 outline-blue-400 rounded-xl p-2 text-md" placeholder={currYear} />
                             </div>
                             <button type="submit" className="w-full bg-blue-800 p-2 rounded-xl mt-7 text-white hover:bg-blue-500">Register</button>
                             <p className="text-sm text-gray-500 cursor-pointer text-center mt-2">Already a user? <span className="hover:underline text-blue-500 hover:text-blue-600" onClick={() => {setPageType("login")}}>Login here</span></p>

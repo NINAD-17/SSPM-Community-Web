@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFriends } from "../state";
+import { academicYearCalc } from "../utils/academicYear";
 
 const ProfileCard = ({ userId }) => {
 
@@ -60,6 +61,16 @@ const ProfileCard = ({ userId }) => {
                         <p className="text-gray-700">Status </p>
                         <p className="font-semibold text-gray-700">{ status }</p>
                     </div>
+                    {
+                        user.status === "Student" 
+                        ? 
+                            <div className="flex justify-between">
+                                <p className="text-gray-700">Currently In </p>
+                                <p className="font-semibold text-gray-700">{ academicYearCalc(user.gradYear) } Year</p>
+                            </div>
+                        : 
+                            <></>
+                    }
                     <div className="flex justify-between flex-wrap">
                         <p className="text-gray-700">Branch </p>
                         <p className="font-semibold text-gray-700">{ branch }</p>
@@ -68,10 +79,6 @@ const ProfileCard = ({ userId }) => {
                         <p className="text-gray-700">Graduation Year </p>
                         <p className="font-semibold text-gray-700">{ gradYear }</p>
                     </div>
-                    {/* <div className="flex justify-between">
-                        <p className="">Post Impressions </p>
-                        <p>100</p>
-                    </div> */}
                 </div>
                 <hr className="border-blue-400 my-2" />
                 <div className="text-base sm:text-sm lg:text-base">

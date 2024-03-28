@@ -40,7 +40,7 @@ const UserSchema = new mongoose.Schema({
     skillSet: {
         type: Array
     },
-    gradYear: String,
+    gradYear: Number,
     friends: {
       type: Array,
       default: [],
@@ -48,8 +48,6 @@ const UserSchema = new mongoose.Schema({
     branch: String,
     status: String,
     workingAt: String,
-    viewedProfile: Number, 
-    impressions: Number,
     socialHandles: [
         {
             name: {type: String},
