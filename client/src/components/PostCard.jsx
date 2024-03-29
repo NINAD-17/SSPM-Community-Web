@@ -2,12 +2,14 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFriends, setPost, setPosts } from "../state";
+import { calculateTimeAgo } from "../utils/calculateTimeAgo";
 
-function PostCard({ postId, userId, name, description, picturePath, userPicturePath, likes }) {
+function PostCard({ postId, userId, description, picturePath, likes, createdAt }) {
     // console.log({postId}, {userId});
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const loggedInUser = useSelector((state) => state.user);
+    const [ postUser, setPostUser ] = useState(null);
     const posts = useSelector((state) => state.posts)
     const loggedInUserId = loggedInUser._id;
     const [ isMoreVertOn, setIsMoreVertOn ] = useState(false);
@@ -16,6 +18,15 @@ function PostCard({ postId, userId, name, description, picturePath, userPictureP
     const isLiked = Boolean(likes[loggedInUserId]);
     const likesCount = Object.keys(likes).length;
     // console.log({likes});
+
+    const getUser = async() => {
+        const response = await fetch(`http://localhost:3000/users/${userId}`, {
+            method: "GET"
+        });
+
+        const user = await response.json();
+        setPostUser(user);
+    }
 
     const updateLike = async() => {
         const id = postId;
@@ -58,17 +69,33 @@ function PostCard({ postId, userId, name, description, picturePath, userPictureP
     }
 
     useEffect(() => {
+        getUser();
+        console.log("get user use effect");
        setIsFriend(loggedInUser.friends.some((friend) => friend._id === userId)) 
     }, [loggedInUser.friends, userId]);
+
+    if(postUser === null) return ;
+    console.log("crate", postUser.createdAt);
 
     return (
         <div className="bg-white p-6 shadow rounded-xl mb-4">
             <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                    <img className="h-12 w-12 rounded-full mr-2 object-cover" src={userPicturePath === '' || userPicturePath === undefined ? "../../user.png" : userPicturePath } alt="" />
+                    <img className="h-12 w-12 rounded-full mr-2 object-cover" src={postUser.picturePath === '' || postUser.picturePath === undefined ? "../../user.png" : postUser.picturePath } alt="" />
                     <div className="">
-                        <h2 className="font-semibold text-md hover:underline cursor-pointer" onClick={() => navigate(`/profile/${userId}`)} >{ name }</h2>
-                        <p className="text-gray-500 text-sm">7 hr</p>
+                        <div className="flex items-center">
+                            <h2 className="font-semibold text-md hover:underline cursor-pointer" onClick={() => navigate(`/profile/${userId}`)} >{ postUser.firstName } { postUser.lastName } </h2>
+                            { 
+                            postUser.status === "Student" ? 
+                            <span className="text-gray-400 text-sm ml-2 font-normal">Third Year <span className="sm:hidden md:inline-block">of Engineering</span></span>
+                            : 
+                            <></>
+                            }
+                            
+                        </div>
+                        
+                        <p className="text-gray-500 text-sm truncate">{ (postUser.headline).length > 35 ? (postUser.headline).slice(0, 35) + "..." : postUser.headline }</p>
+                        <p className="text-gray-500 text-xs">{ postUser.createdAt ? calculateTimeAgo(createdAt) : <></>}</p>
                     </div>
                 </div>
 

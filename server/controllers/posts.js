@@ -24,15 +24,11 @@ import User from "../models/User.js";
 export const createPost = async(req, res) => {
     try {
         const { userId, description, picturePath } = req.body;
-        const user = await User.findById(userId);
         
         const newPost = new Post({
-            userId, 
-            firstName: user.firstName,
-            lastName: user.lastName,
+            userId,
             description,
             picturePath,
-            userPicturePath: user.picturePath,
             likes: {},
             comment: []
         });
@@ -100,8 +96,9 @@ export const deletePost = async(req, res) => {
         const { userId } = req.body;
 
         const post = await Post.findById(postId);
-        if(post.userId !== userId) {
-            res.status(403).json({ message: "you're not valid user to remove this post!"})
+        if(post.userId.toString() !== userId) {
+            res.status(403).json({ message: "you're not valid user to remove this post!"});
+            return;
         }
 
         await Post.deleteOne({ _id: postId });

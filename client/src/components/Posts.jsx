@@ -4,6 +4,7 @@ import { setPosts } from "../state";
 import PostCard from "./PostCard";
 
 const Posts = ({ userId, isProfile = false }) => {
+    console.log({userId});
     const dispatch = useDispatch();
     const posts = useSelector(state => state.posts);
     // console.log("redux posts: ", posts);
@@ -47,23 +48,25 @@ const Posts = ({ userId, isProfile = false }) => {
                     ({
                         _id,
                         userId,
-                        firstName,
-                        lastName,
+                        // firstName,
+                        // lastName,
                         description,
                         picturePath,
-                        userPicturePath,
+                        // userPicturePath,
                         likes,
+                        createdAt
                         // comments,
                     }) => (
                         <PostCard 
                             key={_id} // unique key --> Remember to use unique key while using loops in react 
                             postId={_id}
                             userId={userId}
-                            name={`${firstName} ${lastName}`}
+                            // name={`${firstName} ${lastName}`}
                             description={description}
                             picturePath={picturePath}
-                            userPicturePath={userPicturePath}
+                            // userPicturePath={userPicturePath}
                             likes={likes}
+                            createdAt={createdAt}
                             // comments={comments}
                         />
                     )
