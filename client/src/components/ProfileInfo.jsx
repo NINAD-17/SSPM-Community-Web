@@ -2,7 +2,7 @@
 const ProfileInfo = ({ email, about, socialHandles = [], workingAt, status }) => {
 
     return (
-        <div className="p-6 bg-white rounded-xl mb-4">
+        <div className="p-6 bg-white rounded-xl mb-4 shadow">
             <div className="flex flex-col mb-4">
                 <h2 className="font-semibold text-lg text-gray-900">About </h2>
                 <p className="text-gray-700 text-base">{about}</p>

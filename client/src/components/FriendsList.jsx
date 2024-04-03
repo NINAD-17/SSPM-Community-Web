@@ -21,7 +21,7 @@ const FriendsList = ({ userId }) => {
 
     useEffect(() => {
         getFriends();
-    }, []);
+    }, [userId]);
 
     return (
         <>

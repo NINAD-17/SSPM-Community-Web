@@ -5,7 +5,8 @@ const initialState = {
     mobContent: "posts",
     user: null,
     posts: [],
-    groups: []
+    group: null,
+    groupPosts: []
 }
 
 export const authSlice = createSlice({
@@ -44,11 +45,14 @@ export const authSlice = createSlice({
         setMobContent: (state, action) => {
             state.mobContent = action.payload.mobContent
         }, 
-        setGroups: (state, action) => {
-            state.groups = action.payload.groups;
+        setGroup: (state, action) => {
+            state.group = action.payload;
+        },
+        setGroupMembers: (state, action) => {
+            state.group.members = action.payload;
         }
     }
 });
 
-export const { setTheme, setLogin, setLogout, setPosts, setPost, setFriends, setUpdatedProfile, setMobContent, setGroups } = authSlice.actions;
+export const { setTheme, setLogin, setLogout, setPosts, setPost, setFriends, setUpdatedProfile, setMobContent, setGroup, setGroupMembers } = authSlice.actions;
 export default authSlice.reducer;

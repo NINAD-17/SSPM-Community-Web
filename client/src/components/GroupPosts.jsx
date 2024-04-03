@@ -21,7 +21,7 @@ const GroupPosts = ({ groupId }) => {
 
     useEffect(() => {
         getGroupPosts();
-    }, [groupId]);
+    }, []);
 
     // console.log({posts})
 
@@ -29,8 +29,8 @@ const GroupPosts = ({ groupId }) => {
         <>
             {   posts.length === 0 ? 
                 <>
-                    <div className="w-full bg-white h-full rounded-xl text-center">
-                        <img className="mx-auto my-auto w-80 p-5" src="../../postNotFound.png" alt="" />
+                    <div className="w-full bg-white rounded-xl text-center p-10">
+                        <img className="mx-auto my-auto w-80" src="../../postNotFound.png" alt="" />
                         <h2 className="text-gray-300 font-semibold text-2xl">Don't have any posts</h2>
                     </div>
                 </> :
@@ -43,7 +43,9 @@ const GroupPosts = ({ groupId }) => {
                         likes,
                         comments,
                         group,
-                    }) => (
+                    }) => {
+                        console.log("posts-id", {_id})
+                        return (
                         <GroupPostCard 
                             key={_id} // unique key --> Remember to use unique key while using loops in react 
                             postId={_id}
@@ -51,9 +53,10 @@ const GroupPosts = ({ groupId }) => {
                             description={description}
                             picturePath={picturePath}
                             likes={likes}
+                            groupId={group}
                             // comments={comments}
                         />
-                    )
+                    )}
                 )
             }
         </>

@@ -3,14 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFriends, setPost, setPosts } from "../state";
 
-const GroupPostCard = ({ _id,
+const GroupPostCard = ({ postId,
                         userId,
                         description,
                         picturePath,
                         likes,
                         comments,
-                        group, }) => {
+                        groupId, }) => {
     // console.log({postId}, {userId});
+    console.log({userId});
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const loggedInUser = useSelector((state) => state.user);
@@ -19,14 +20,13 @@ const GroupPostCard = ({ _id,
     const loggedInUserId = loggedInUser._id;
     const [ isMoreVertOn, setIsMoreVertOn ] = useState(false);
     const [ isFriend, setIsFriend ] = useState(false);
-    // console.log({loggedInUserId});
-    const isLiked = Boolean(likes[loggedInUserId]);
-    const likesCount = Object.keys(likes).length;
+    console.log({loggedInUserId});
+    const isLiked = likes ? Boolean(likes[loggedInUserId]) : false;
+    const likesCount = likes ? Object.keys(likes).length : 0;
     // console.log({likes});
 
     const updateLike = async() => {
-        const id = _id;
-        const response = await fetch(`http://localhost:3000/groups/posts/${id}/likes`, {
+        const response = await fetch(`http://localhost:3000/groups/posts/${postId}/likes`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -35,7 +35,7 @@ const GroupPostCard = ({ _id,
         });
         const updatedPost = await response.json();
         dispatch(setPost({ post: updatedPost }));
-    }
+    } 
 
     const patchFriend = async() => {
         const response = await fetch(`http://localhost:3000/users/${loggedInUserId}/${userId}`, {
@@ -49,17 +49,18 @@ const GroupPostCard = ({ _id,
     }
 
     const deletePost = async () => {
-        const response = await fetch(`http://localhost:3000/groups/posts/${postId}`, {
+        console.log("del", {loggedInUserId});
+        const response = await fetch(`http://localhost:3000/groups/post/${ postId }/delete`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ userId: loggedInUserId })
         });
-
+        console.log({groupId});
         console.log(response);
         if (response.status === 200) {
-            const updatedPosts = posts.filter((post) => post._id !== _id)
+            const updatedPosts = posts.filter((post) => post._id !== postId)
             dispatch(setPosts({ posts: updatedPosts }))
         }
     } 
@@ -77,8 +78,8 @@ const GroupPostCard = ({ _id,
     }
 
     useEffect(() => {
+        getUser();
        setIsFriend(loggedInUser.friends.some((friend) => friend._id === userId)) 
-       getUser();
     }, [loggedInUser.friends, userId]);
 
     return (

@@ -94,7 +94,7 @@ function PostCard({ postId, userId, description, picturePath, likes, createdAt }
                             
                         </div>
                         
-                        <p className="text-gray-500 text-sm truncate">{ (postUser.headline).length > 35 ? (postUser.headline).slice(0, 35) + "..." : postUser.headline }</p>
+                        <p className="text-gray-500 text-sm truncate">{ (postUser.headline)?.length > 35 ? (postUser.headline).slice(0, 35) + "..." : postUser.headline }</p>
                         <p className="text-gray-500 text-xs">{ postUser.createdAt ? calculateTimeAgo(createdAt) : <></>}</p>
                     </div>
                 </div>

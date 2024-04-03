@@ -10,6 +10,7 @@ export const register = async (req, res) => {
             firstName, 
             lastName, 
             email, 
+            password,
             gradYear,
             branch,
         } = req.body; // Destructuring parameters from req.body. It's all data from the registration form.
@@ -27,16 +28,9 @@ export const register = async (req, res) => {
             lastName, 
             email, 
             password: passwordHash,
-            picturePath,
-            headline,
-            about,
-            skillSet,
             gradYear,
-            friends,
-            branch,
             status,
-            workingAt,
-            socialHandles,
+            branch
         });
 
         // Saving new user in database

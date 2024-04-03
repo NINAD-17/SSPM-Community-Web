@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setMobContent } from "../state";
 
-const ThreeCard = () => {
+const ThreeCard = ({ page }) => {
 
     const dispatch = useDispatch();
     const [ content, setContent ] = useState(useSelector(state => state.mobContent));
@@ -17,10 +17,15 @@ const ThreeCard = () => {
                 <p>Friends</p>
                 <span className="material-symbols-outlined">diversity_3</span>
             </div>
-            <div onClick={() => {dispatch(setMobContent({mobContent: "groups"})); setContent("groups")}} className={`bg-white hover:bg-yellow-100 text-yellow-500 shadow rounded-xl p-3 w-full cursor-pointer text-center ${content === "groups" ? "font-semibold" : ""}`}>
+            {
+                page === "profile" ? 
+                <></> :
+                <div onClick={() => {dispatch(setMobContent({mobContent: "groups"})); setContent("groups")}} className={`bg-white hover:bg-yellow-100 text-yellow-500 shadow rounded-xl p-3 w-full cursor-pointer text-center ${content === "groups" ? "font-semibold" : ""}`}>
                 <p>Groups</p>
                 <span className="material-symbols-outlined">groups</span>
             </div>
+            }
+            
         </div>
     )
 }

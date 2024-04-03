@@ -38,25 +38,80 @@ export const getGroupInfo = async(req, res) => {
     res.status(200).json(group);
 }
 
+export const joinOrLeaveGroup = async(req, res) => {
+    try {
+        const { groupId, userId } = req.params;
+
+        const group = await Group.findById(groupId);
+        const isMember = group.members.some(member => member.toString() === userId);
+
+        if(isMember) {
+            group.members = group.members.filter(member => member.toString() !== userId);
+        } else {
+            group.members.push(userId);
+        }
+
+        await group.save();
+
+        res.status(200).json(group.members);
+    } catch(error) {
+        res.status(500).json({error: "something went wrong"});
+    }
+}
+
 export const getGroupPosts = async(req, res) => {
     try {
         const { groupId } = req.params;
-        const group = await Group.findById(groupId);
-        const groupPosts = group.groupPosts;
+        const populatedGroup = await Group.findById(groupId).populate({
+            path: 'groupPosts',
+            options: { sort: { 'createdAt': -1 } }
+        });
+        // const groupPosts = await GroupPost.find({ group: groupId });
 
-        res.status(200).json(groupPosts);
+        res.status(200).json(populatedGroup.groupPosts);
         
     } catch(error) {
-        res.status(500).json({ message: "Can't get all groups"});
+        res.status(500).json({ message: "error"});
+    }
+}
+
+export const createGroupPost = async(req, res) => {
+    try {
+        const { groupId } = req.params;
+        const { userId, description } = req.body;
+
+        const newPost = new GroupPost({
+            userId,
+            description,
+            likes: {},
+            comments: [],
+            groupId
+        });
+
+        await newPost.save();
+
+        const group = await Group.findById(groupId);
+        group.groupPosts.push(newPost._id);
+        await group.save();
+
+        const populatedGroup = await Group.findById(groupId).populate({
+            path: 'groupPosts',
+            options: { sort: { 'createdAt': -1 } }
+        });
+
+        res.status(201).json(populatedGroup.groupPosts);
+    } catch(error) {
+        res.status(500).json({error: "Can't create post"});
     }
 }
 
 export const likePost = async(req, res) => {
     try {
-        const { id } = req.params; // Id of particular post
+        const { postId } = req.params; // Id of particular post and user
         const { userId } = req.body;
+        console.log(postId, userId)
 
-        const post = await GroupPost.findById(id);
+        const post = await GroupPost.findById(postId);
         const isLiked = post.likes.get(userId); // It will check in all likes that this particular userId is exist in likes or not // Post liked by particular person
 
         if(isLiked) {
@@ -66,7 +121,7 @@ export const likePost = async(req, res) => {
         }
 
         const updatedPost = await GroupPost.findByIdAndUpdate(
-            id,
+            postId,
             { likes: post.likes },
             { new: true } // it tells Mongoose to return the new version of the document.
         );
@@ -82,10 +137,19 @@ export const deletePost = async(req, res) => {
         const { postId } = req.params;
         const { userId } = req.body;
 
+        console.log(postId, userId);
         const post = await GroupPost.findById(postId);
-        if(post.userId !== userId) {
-            res.status(403).json({ message: "you're not valid user to remove this post!"})
+        if(post.userId.toString() !== userId) {
+            console.log("postu", post.userId);
+            return res.status(403).json({ message: "you're not valid user to remove this post!"})
         }
+
+        // Find the group that the post belongs to
+        const group = await Group.findOne({ groupPosts: postId });
+
+        // Remove the post ID from the groupPosts array
+        group.groupPosts = group.groupPosts.filter(id => id.toString() !== postId);
+        await group.save();
 
         await GroupPost.deleteOne({ _id: postId });
         // const posts = await Post.find().sort({ createdAt: -1 }); // -1 for decending order

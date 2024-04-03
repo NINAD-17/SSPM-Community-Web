@@ -19,7 +19,9 @@ const GroupPostSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Group'
     }
-});
+}, {timestamps: true});
+
+GroupPostSchema.index({ createdAt: -1 });
 
 const GroupPost = mongoose.model("GroupPost", GroupPostSchema);
 export default GroupPost;

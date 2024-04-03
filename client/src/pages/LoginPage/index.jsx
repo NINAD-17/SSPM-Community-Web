@@ -16,6 +16,7 @@ const LoginPage = () => {
     const [ lname, setLname ] = useState("");
     const currYear = new Date().getFullYear();
     const [ gradYear, setGradYear ] = useState("");
+    const [ branch, setBranch ] = useState("");
 
     const login = async() => {
         const data = { email, password, fname, lname };
@@ -43,7 +44,7 @@ const LoginPage = () => {
     }
 
     const register = async() => {
-        const data = { firstName: fname, lastName: lname, email, password };
+        const data = { firstName: fname, lastName: lname, email, password, gradYear, branch };
 
         const registeredResponse = await fetch("http://localhost:3000/auth/register", {
             method: "POST",
@@ -56,10 +57,12 @@ const LoginPage = () => {
         setLname("");
         setEmail("");
         setPassword("");
+        setBranch("");
+        setGradYear("");
         console.log({registered});
 
         try {
-            if(registered.status === 201) {
+            if(registeredResponse.status === 201) {
             setPageType("login");
         }
         } catch(error) {
@@ -122,6 +125,10 @@ const LoginPage = () => {
                             <div className="">
                                 <label htmlFor="password" className="block text-sm font-medium mb-2 lg:text-md">Password</label>
                                 <input type="password" name="password" value={password} onChange={(event) => setPassword(event.target.value)} className="mb-2 w-full outline-1 outline-blue-400 rounded-xl p-2 text-md" placeholder="Create a strong password (min 8 characters)" />
+                            </div>
+                            <div className="">
+                                <label htmlFor="branch" className="block text-sm font-medium mb-2 lg:text-md">Branch</label>
+                                <input type="text" name="branch" value={branch} onChange={(event) => setBranch(event.target.value)} className="mb-2 w-full outline-1 outline-blue-400 rounded-xl p-2 text-md" placeholder="Enter your Branch - Computer Engineering" />
                             </div>
                             <div className="">
                                 <label htmlFor="gradYear" className="block text-sm font-medium mb-2 lg:text-md">Graduation Year</label>

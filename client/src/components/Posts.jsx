@@ -43,7 +43,14 @@ const Posts = ({ userId, isProfile = false }) => {
 
     return (
         <>
-            {
+            {   
+                posts.length === 0 ? 
+                <>
+                    <div className="w-full bg-white rounded-xl text-center p-10 mt-4 shadow">
+                        <img className="mx-auto my-auto w-80" src="../../postNotFound.png" alt="" />
+                        <h2 className="text-gray-300 font-semibold text-2xl">Don't have any posts</h2>
+                    </div>
+                </> :
                 posts.map(
                     ({
                         _id,

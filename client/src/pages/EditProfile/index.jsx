@@ -50,7 +50,7 @@ const EditProfile = () => {
 
         <>
             <Navbar />
-            <div className="bg-white mt-20 mx-2 mb-5 rounded-xl px-8 py-5 md:mx-24 lg:mx-32 xl:mx-40 ">
+            <div className="bg-white mt-20 mb-5 rounded-xl px-8 py-5 mx-2 md:mx-24 lg:mx-32 xl:mx-40 max-w-7xl 2xl:mx-auto">
                 <form onSubmit={handleUpdate}>
                     <div className="h-24 w-24 mx-auto cursor-pointer relative">
                         <img className="rounded-full hover:opacity-50 h-24 w-24 object-cover" src={`${loggedInUser.picturePath ? loggedInUser.picturePath : "../../user.png"}`} alt="" />

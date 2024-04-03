@@ -5,6 +5,7 @@ export const calculateTimeAgo = (dateInString) => {
 
     if (diffInSeconds < 60) {
         console.log(`${diffInSeconds} seconds ago`)
+        if(diffInSeconds === 0) return `now`;
         return `${diffInSeconds} seconds ago`;
     } else if (diffInSeconds < 3600) {
         console.log(`${Math.floor(diffInSeconds / 60)} minutes ago`)

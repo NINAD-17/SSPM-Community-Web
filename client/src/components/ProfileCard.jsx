@@ -10,7 +10,7 @@ const ProfileCard = ({ userId }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const loggedInUser = useSelector(state => state.user); // .id
-    const isFriend = loggedInUser.friends.find((friend) => friend._id === userId);
+    const [ isFriend, setIsFriend ] = useState(false);
 
     const getUser = async() => {
         const response = await fetch(`http://localhost:3000/users/${userId}`, {
@@ -22,6 +22,7 @@ const ProfileCard = ({ userId }) => {
 
         console.log({response}, {data});
         setUser(data);
+        setIsFriend(loggedInUser.friends.find((friend) => friend._id === userId))
     }
 
     const patchFriend = async() => {
@@ -40,7 +41,7 @@ const ProfileCard = ({ userId }) => {
     // Whenever this component is loaded call it.
     useEffect(() => {
         getUser();
-    }, []);
+    }, [userId]);
 
     if(!user) {
         return null;
@@ -81,19 +82,26 @@ const ProfileCard = ({ userId }) => {
                     </div>
                 </div>
                 <hr className="border-blue-400 my-2" />
-                <div className="text-base sm:text-sm lg:text-base">
-                    <h3 className="font-semibold text-gray-900">Social Profiles</h3>
-                    <ul>
-                        { 
-                            user.socialHandles.length > 0 ? 
-                                user.socialHandles.map((handle) => (
-                                    <li key={handle.url} className=""><a className="cursor-pointer hover:underline text-gray-700 hover:text-blue-400" href={handle.url} target="_blank">{handle.name}</a></li>
-                                ))
-                            : <></>
-                        }
-                    </ul>
-                </div>
-                <hr className="border-blue-400 my-2" />
+                {
+                    user.socialHandles.length > 0 ? 
+                        <>
+                            <div className="text-base sm:text-sm lg:text-base">
+                                <h3 className="font-semibold text-gray-900">Social Profiles</h3>
+                                <ul>
+                                    {
+                                        user.socialHandles.map((handle) => (
+                                            <li key={handle.url} className=""><a className="cursor-pointer hover:underline text-gray-700 hover:text-blue-400" href={handle.url} target="_blank">{handle.name}</a></li>
+                                        ))
+                                    }
+                                </ul>
+                            </div>
+                            <hr className="border-blue-400 my-2" />
+                        </>
+                        
+                    : <></>
+                }
+                
+                
                 {
                     userId === loggedInUser._id ?
                         <div className="flex justify-center items-center text-blue-700 hover:text-blue-400" onClick={() => navigate(`/${userId}/edit`)}>

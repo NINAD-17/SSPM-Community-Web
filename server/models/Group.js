@@ -29,7 +29,7 @@ const GroupSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
-});
+}, {timestamps: true});
 
 const Group = mongoose.model("Group", GroupSchema);
 export default Group;

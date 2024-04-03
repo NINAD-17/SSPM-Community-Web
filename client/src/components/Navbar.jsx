@@ -26,7 +26,7 @@ function Navbar() {
     return (
         <nav className="fixed top-0 z-10 bg-white dark:bg-black w-full h-16 flex justify-between items-center p-6 border-b border-blue-200">
             <div className="left flex items-center">
-                <div className="logo font-bold text-2xl sm:text-3xl cursor-pointer text-blue-600">SSPM COMMUNITY</div>
+                <div className="logo font-bold text-2xl md:text-3xl cursor-pointer text-blue-600" onClick={() => navigate("/home")}>SSPM COMMUNITY</div>
                 <div className="hidden md:block ml-3">
                     <form action="">
                         <input className="p-2 rounded-2xl border border-blue-400 focus:outline-blue-600" type="text" placeholder="Search" />
