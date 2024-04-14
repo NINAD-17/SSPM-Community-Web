@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFriends, setPost, setPosts } from "../state";
 import { calculateTimeAgo } from "../utils/calculateTimeAgo";
+import { academicYearCalc } from "../utils/academicYear";
 
 function PostCard({ postId, userId, description, picturePath, likes, createdAt }) {
     // console.log({postId}, {userId});
@@ -63,7 +64,7 @@ function PostCard({ postId, userId, description, picturePath, likes, createdAt }
 
         console.log(response);
         if (response.status === 200) {
-            const updatedPosts = posts.filter((post) => post._id !== postId)
+            const updatedPosts = posts?.filter((post) => post._id !== postId)
             dispatch(setPosts({ posts: updatedPosts }))
         }
     }
@@ -71,7 +72,7 @@ function PostCard({ postId, userId, description, picturePath, likes, createdAt }
     useEffect(() => {
         getUser();
         console.log("get user use effect");
-       setIsFriend(loggedInUser.friends.some((friend) => friend._id === userId)) 
+       setIsFriend(loggedInUser.friends?.some((friend) => friend._id === userId)) 
     }, [loggedInUser.friends, userId]);
 
     if(postUser === null) return ;
@@ -87,9 +88,9 @@ function PostCard({ postId, userId, description, picturePath, likes, createdAt }
                             <h2 className="font-semibold text-md hover:underline cursor-pointer" onClick={() => navigate(`/profile/${userId}`)} >{ postUser.firstName } { postUser.lastName } </h2>
                             { 
                             postUser.status === "Student" ? 
-                            <span className="text-gray-400 text-sm ml-2 font-normal">Third Year <span className="sm:hidden md:inline-block">of Engineering</span></span>
+                            <span className="text-gray-400 text-sm ml-2 font-normal">{ academicYearCalc(postUser.gradYear)} Year <span className="sm:hidden md:inline-block">of Engineering</span></span>
                             : 
-                            <></>
+                            <span className="text-gray-400 text-sm ml-2 font-normal">Alumni - {postUser.gradYear}</span>
                             }
                             
                         </div>

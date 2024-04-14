@@ -23,12 +23,13 @@ import User from "../models/User.js";
 // CREATE
 export const createPost = async(req, res) => {
     try {
+        console.log(req.body);
         const { userId, description, picturePath } = req.body;
         
         const newPost = new Post({
             userId,
             description,
-            picturePath,
+            picturePath: `http://localhost:3000/posts/${picturePath}`,
             likes: {},
             comment: []
         });

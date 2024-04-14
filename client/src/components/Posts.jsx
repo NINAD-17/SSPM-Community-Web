@@ -42,7 +42,7 @@ const Posts = ({ userId, isProfile = false }) => {
     // console.log({posts})
 
     return (
-        <>
+        <div className="mt-4">
             {   
                 posts.length === 0 ? 
                 <>
@@ -79,7 +79,7 @@ const Posts = ({ userId, isProfile = false }) => {
                     )
                 )
             }
-        </>
+        </div>
     )
 }
 

@@ -78,11 +78,12 @@ export const getGroupPosts = async(req, res) => {
 export const createGroupPost = async(req, res) => {
     try {
         const { groupId } = req.params;
-        const { userId, description } = req.body;
+        const { userId, description, picturePath } = req.body;
 
         const newPost = new GroupPost({
             userId,
             description,
+            picturePath: `http://localhost:3000/groupPosts/${picturePath}`,
             likes: {},
             comments: [],
             groupId

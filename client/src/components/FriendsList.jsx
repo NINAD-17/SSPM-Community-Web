@@ -23,12 +23,14 @@ const FriendsList = ({ userId }) => {
         getFriends();
     }, [userId]);
 
+    if(friends === null) return <></>
+
     return (
         <>
             <div className="bg-white rounded-xl my-4 py-4 shadow">
             <h1 className="text-lg font-semibold mx-4 mb-2">Friends</h1>
             {   friends ? 
-                friends.map((friend) => {
+                friends?.map((friend) => {
                     // console.log("friends: ", {friends});
                     // console.log("map friends: ", {friend});
                     return (

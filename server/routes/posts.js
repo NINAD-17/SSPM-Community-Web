@@ -9,7 +9,7 @@ router.get("/", getFeedPosts);
 router.get("/:userId/posts", getUserPosts);
 
 // WRITE
-router.post("/createpost", createPost);
+// router.post("/createpost", upload.single("picture"), createPost);
 
 // UPDATE
 router.patch("/:id/likes", likePost);

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFriends, setPost, setPosts } from "../state";
+import { calculateTimeAgo } from "../utils/calculateTimeAgo";
+import { academicYearCalc } from "../utils/academicYear";
 
 const GroupPostCard = ({ postId,
                         userId,
@@ -88,8 +90,19 @@ const GroupPostCard = ({ postId,
                 <div className="flex items-center space-x-2">
                     <img className="h-12 w-12 rounded-full mr-2 object-cover" src={postUser.picturePath === '' || postUser.picturePath === undefined ? "../../user.png" : postUser.picturePath } alt="" />
                     <div className="">
-                        <h2 className="font-semibold text-md hover:underline cursor-pointer" onClick={() => navigate(`/profile/${userId}`)} >{ `${postUser.firstName} ${postUser.lastName}` }</h2>
-                        <p className="text-gray-500 text-sm">7 hr</p>
+                        <div className="flex items-center">
+                            <h2 className="font-semibold text-md hover:underline cursor-pointer" onClick={() => navigate(`/profile/${userId}`)} >{ postUser.firstName } { postUser.lastName } </h2>
+                            { 
+                            postUser.status === "Student" ? 
+                            <span className="text-gray-400 text-sm ml-2 font-normal">{ academicYearCalc(postUser.gradYear)} Year <span className="sm:hidden md:inline-block">of Engineering</span></span>
+                            : 
+                            <span className="text-gray-400 text-sm ml-2 font-normal">Alumni - {postUser.gradYear}</span>
+                            }
+                            
+                        </div>
+                        
+                        <p className="text-gray-500 text-sm truncate">{ (postUser.headline)?.length > 35 ? (postUser.headline).slice(0, 35) + "..." : postUser.headline }</p>
+                        <p className="text-gray-500 text-xs">{ postUser.createdAt ? calculateTimeAgo(postUser.createdAt) : <></>}</p>
                     </div>
                 </div>
 

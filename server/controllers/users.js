@@ -71,7 +71,7 @@ export const updateProfile = async (req, res) => {
 
     try {
         const { id } = req.params;
-        const { headline, about, gradYear, status, branch, workingAt } = req.body;
+        const { headline, about, gradYear, status, branch, workingAt, picturePath } = req.body;
 
         // Find the user and update the document
         const updatedUser = await User.findByIdAndUpdate(id, {
@@ -80,8 +80,14 @@ export const updateProfile = async (req, res) => {
             gradYear,
             status,
             branch,
-            workingAt
+            workingAt,
+            picturePath: `http://localhost:3000/profileImages/${picturePath}`
         }, { new: true }); // 'new: true' returns the updated document
+
+        // // If a new picture was uploaded, update the picturePath
+        // if (req.file) {
+        //     updatedUser.picturePath = `http://localhost:3000/profileImages/${req.file.originalname}`;
+        // }
 
         // If the user was not found, send a 404 response
         if (!updatedUser) {

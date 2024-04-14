@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { setUpdatedProfile } from "../../state"
 import { LegendToggleTwoTone } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import Dropzone from '../../components/Dropzone';
 
 const EditProfile = () => {
     const loggedInUser = useSelector(state => state.user);
@@ -18,6 +19,8 @@ const EditProfile = () => {
     const [gradYear, setGradYear] = useState(loggedInUser.gradYear);
     const [branch, setBranch] = useState(loggedInUser.branch);
     const [workingAt, setWorkingAt] = useState(loggedInUser.workingAt);
+    const [ isPictureSelected, setIsPictureSelected ] = useState(false);
+    const [ picture, setPicture ] = useState(null);
     console.log({loggedInUser});
     console.log("Logg", loggedInUser._id);
     console.log(typeof loggedInUser._id);
@@ -26,17 +29,35 @@ const EditProfile = () => {
     console.log(typeof gradYear);
     console.log(typeof status);
     console.log(typeof workingAt);
+    console.log("kk", loggedInUser.picturePath);
     
 
     const handleUpdate = async(event) => {
         event.preventDefault();
         const id = loggedInUser._id;
+
+        const formData = new FormData();
+        formData.append("headline", headline)
+        formData.append("about", about)
+        formData.append("gradYear", gradYear)
+        formData.append("branch", branch)
+        formData.append("status", status)
+        formData.append("workingAt", workingAt)
+        
+        if(picture) {
+            formData.append("picture", picture[0])
+            formData.append("picturePath", picture[0].name)
+        } else {
+            formData.append("picturePath", loggedInUser.picturePath)
+        }
+
+
         const response = await fetch(`http://localhost:3000/users/${id}/edit`, {
             method: "PATCH",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ headline, about, gradYear, branch, status, workingAt })
+            // headers: {
+            //     'Content-Type': 'application/json'
+            // },
+            body: formData
         });
         console.log(loggedInUser._id);
 
@@ -52,12 +73,23 @@ const EditProfile = () => {
             <Navbar />
             <div className="bg-white mt-20 mb-5 rounded-xl px-8 py-5 mx-2 md:mx-24 lg:mx-32 xl:mx-40 max-w-7xl 2xl:mx-auto">
                 <form onSubmit={handleUpdate}>
-                    <div className="h-24 w-24 mx-auto cursor-pointer relative">
-                        <img className="rounded-full hover:opacity-50 h-24 w-24 object-cover" src={`${loggedInUser.picturePath ? loggedInUser.picturePath : "../../user.png"}`} alt="" />
-                        <div className="absolute inset-0 rounded-full bg-black opacity-0 hover:opacity-50 flex items-center justify-center transition-opacity duration-200 ease-in-out">
-                            <span className="material-symbols-outlined text-white">edit</span>
+                    { 
+                        isPictureSelected ?
+                            <div className="flex w-full justify-center">
+                                <div className="h-24 ">
+                                    <Dropzone files={picture} setFiles={setPicture} custCSS={"h-24 w-48 rounded-full"} />
+                                </div>
+                                <span className={`${picture ? "hidden": "block"} material-symbols-outlined cursor-pointer ml-2 hover:text-red-400`} onClick={() => setIsPictureSelected(!isPictureSelected)}>close</span>
+                            </div>
+                        :
+                        <div className="h-24 w-24 mx-auto cursor-pointer relative" onClick={() => setIsPictureSelected(!isPictureSelected)}>
+                            <img className="rounded-full hover:opacity-50 h-24 w-24 object-cover" src={`${loggedInUser.picturePath ? loggedInUser.picturePath : "../../user.png"}`} alt="" />
+                            <div className="absolute inset-0 rounded-full bg-black opacity-0 hover:opacity-50 flex items-center justify-center transition-opacity duration-200 ease-in-out">
+                                <span className="material-symbols-outlined text-white">edit</span>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    
                     <div className="text-2xl font-semibold text-center m-3">
                         <h1>{loggedInUser.firstName} {loggedInUser.lastName}</h1>
                     </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux"
 import { setPosts } from "../state";
+import Dropzone from "../components/Dropzone";
 
 function CreateGroupPost() {
 
@@ -14,18 +15,22 @@ function CreateGroupPost() {
 
     console.log({postDescription});
     const handlePost = async() => {
-        const post = {
-            userId: user._id,
-            description: postDescription,
-            picturePath: isPictureSelected ? picture : ""
+        const formData = new FormData();
+        formData.append("userId", user._id);
+        formData.append("description", postDescription);
+        
+        if(picture) {
+            console.log("picpic", picture, picture[0].name);
+            formData.append("picture", picture[0])
+            formData.append("picturePath", picture[0].name);
         }
-
+ 
         const response = await fetch(`http://localhost:3000/groups/${group._id}/create-post`, {
             method: "POST",
-            headers: {
-                'Content-Type': 'application/json' // server might expect the body to be in JSON format. Therefore set this.
-            },
-            body: JSON.stringify(post)
+            // headers: {
+            //     'Content-Type': 'application/json' // server might expect the body to be in JSON format. Therefore set this.
+            // },
+            body: formData
         });
         const posts = await response.json();
 
@@ -64,12 +69,13 @@ function CreateGroupPost() {
                         <span className="material-symbols-outlined cursor-pointer hover:text-blue-400" onClick={() => setIsPostCreationOn(false)}>close</span>
                     </div>
                     <textarea className="w-full h-36 p-2 mt-4 border border-blue-400 outline-blue-700 rounded-xl" placeholder="What do you want to talk about?" value={postDescription} onChange={(event) => setPostDescription(event.target.value)} ></textarea>
-                    <div className="flex justify-around text-blue-800 px-3 mt-2">
+                    {/* <div className="flex justify-around text-blue-800 px-3 mt-2">
                         <span className="material-symbols-outlined text-2xl hover:text-blue-400 cursor-pointer">panorama</span>
                         <span className="material-symbols-outlined text-2xl hover:text-blue-400 cursor-pointer">videocam</span>
                         <span className="material-symbols-outlined text-2xl hover:text-blue-400 cursor-pointer">insert_drive_file</span>
                         <span className="material-symbols-outlined text-2xl hover:text-blue-400 cursor-pointer">article</span>
-                    </div>
+                    </div> */}
+                    <Dropzone files={picture} setFiles={setPicture} />
                     <button className="w-full bg-blue-800 p-2 rounded-xl mt-3 text-white hover:bg-blue-500" onClick={handlePost}>Post</button>
                 </div>
             )}

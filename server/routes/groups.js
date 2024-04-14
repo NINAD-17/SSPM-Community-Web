@@ -7,7 +7,7 @@ router.get("/", getGroups);
 router.patch("/posts/:postId/likes", likePost)
 router.delete("/post/:postId/delete", deletePost);
 router.patch("/:groupId/member/:userId", joinOrLeaveGroup);
-router.post("/:groupId/create-post", createGroupPost);
+// router.post("/:groupId/create-post", createGroupPost);
 router.get("/:groupId/posts", getGroupPosts);
 router.get("/:groupId", getGroupInfo);
 router.post("/create-group", createGroup);
