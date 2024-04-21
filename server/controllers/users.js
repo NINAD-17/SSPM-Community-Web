@@ -24,8 +24,8 @@ export const getUserFriends = async (req, res) => {
         );
 
         const formattedFriends = friends.map(
-            ({ _id, firstName, lastName, picturePath, headline}) => (
-               { _id, firstName, lastName, picturePath, headline }
+            ({ _id, firstName, lastName, picturePath, headline, status }) => (
+               { _id, firstName, lastName, picturePath, headline, status }
             )
         )
         res.status(200).json(formattedFriends)
@@ -71,7 +71,7 @@ export const updateProfile = async (req, res) => {
 
     try {
         const { id } = req.params;
-        const { headline, about, gradYear, status, branch, workingAt, picturePath } = req.body;
+        const { headline, about, gradYear, status, branch, workingAt, picturePath, socialHandles } = req.body;
 
         // Find the user and update the document
         const updatedUser = await User.findByIdAndUpdate(id, {
@@ -81,6 +81,7 @@ export const updateProfile = async (req, res) => {
             status,
             branch,
             workingAt,
+            socialHandles: JSON.parse(socialHandles),
             picturePath: `http://localhost:3000/profileImages/${picturePath}`
         }, { new: true }); // 'new: true' returns the updated document
 

@@ -21,6 +21,8 @@ const EditProfile = () => {
     const [workingAt, setWorkingAt] = useState(loggedInUser.workingAt);
     const [ isPictureSelected, setIsPictureSelected ] = useState(false);
     const [ picture, setPicture ] = useState(null);
+    const [ github, setGithub ] = useState(loggedInUser.socialHandles[0].url || null);
+    const [ linkedin, setLinkedin ] = useState(loggedInUser.socialHandles[1].url || null);
     console.log({loggedInUser});
     console.log("Logg", loggedInUser._id);
     console.log(typeof loggedInUser._id);
@@ -43,6 +45,21 @@ const EditProfile = () => {
         formData.append("branch", branch)
         formData.append("status", status)
         formData.append("workingAt", workingAt)
+
+        if(github || linkedin) {
+            const socialHandles = [
+                {
+                    "name": "GitHub",
+                    "url": github
+                },
+                {
+                    "name": "LinkedIn",
+                    "url": linkedin
+                }
+            ]
+
+            formData.append("socialHandles", JSON.stringify(socialHandles));
+        }
         
         if(picture) {
             formData.append("picture", picture[0])
@@ -129,6 +146,17 @@ const EditProfile = () => {
                     </div> */}
 
                     {/* add social handles */}
+                    <div className="font-semibold mt-5 text-sm text-blue-700 ml-2 ">Social Handles</div>
+                        <div className="mt-2 flex">
+                            <label className="block sm:flex sm:flex-row w-1/6 text-sm font-semibold m-2" htmlFor="gradYear">GitHub Profile</label>
+                            <input className="bg-gray-50 w-full font-sm outline-blue-400 rounded-xl px-3 py-2" type="text" value={github} onChange={(e) => setGithub(e.target.value)}  name="github" placeholder='Enter your GitHub URL' />
+                        </div>
+                        <div className="mt-5 flex">
+                            <label className="block sm:flex sm:flex-row w-1/6 text-sm font-semibold m-2" htmlFor="usertype">Linkedin Profile</label>
+                            <input className="bg-gray-50 w-full font-sm outline-blue-400 rounded-xl px-3 py-2" type="text" value={linkedin} onChange={(e) => setLinkedin(e.target.value)}  name="linkedin" placeholder='Enter your LinkedIn URL' />
+                        </div> 
+                    =
+
                     <button type="submit" className="w-full bg-blue-800 p-2 rounded-xl mt-7 text-white hover:bg-blue-500">Update Profile</button>
                 </form>
             </div>

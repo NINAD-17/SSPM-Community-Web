@@ -16,6 +16,7 @@ const FriendsList = ({ userId }) => {
         const friends = await response.json();
         console.log("Formatted Friends: ", friends);
 
+        if(response.status === 404) return <></>
         dispatch(setFriends({ friends }));
     }
 
@@ -39,6 +40,7 @@ const FriendsList = ({ userId }) => {
                         friendId={friend._id}
                         name={`${friend.firstName} ${friend.lastName}`}
                         friendPicture={friend.picturePath}
+                        status={friend.status}
                     />)
                 })
                 : <></>

@@ -90,7 +90,7 @@ const ProfileCard = ({ userId }) => {
                                 <ul>
                                     {
                                         user.socialHandles.map((handle) => (
-                                            <li key={handle.url} className=""><a className="cursor-pointer hover:underline text-gray-700 hover:text-blue-400" href={handle.url} target="_blank">{handle.name}</a></li>
+                                            <li key={handle.url} className=""><a className="cursor-pointer hover:underline text-gray-700 hover:text-blue-400" href={`${handle.url}`} target="_blank">{handle.name}</a></li>
                                         ))
                                     }
                                 </ul>

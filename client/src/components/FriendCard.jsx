@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { setFriends } from "../state";
 
-const FriendCard = ({ friendId, name, friendPicture }) => {
+const FriendCard = ({ friendId, name, friendPicture, status }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { _id } = useSelector(state => state.user);
@@ -32,7 +32,7 @@ const FriendCard = ({ friendId, name, friendPicture }) => {
             <h2 className="group-name text-md font-semibold cursor-pointer hover:underline" onClick={() => navigate(`/profile/${friendId}`)}>
                 {name}
             </h2>
-            <p className="text-gray-400">Student</p>
+            <p className="text-gray-400">{status}</p>
         </div>
         <div className="ml-7 cursor-pointer text-blue-800 hover:text-blue-400" onClick={patchFriend}>
             {isFriend ? (
