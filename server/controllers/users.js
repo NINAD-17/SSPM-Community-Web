@@ -73,6 +73,7 @@ export const updateProfile = async (req, res) => {
         const { id } = req.params;
         const { headline, about, gradYear, status, branch, workingAt, picturePath, socialHandles } = req.body;
 
+        console.log({id}, {headline}, {picturePath}, {socialHandles}, {picturePath});
         // Find the user and update the document
         const updatedUser = await User.findByIdAndUpdate(id, {
             headline,
@@ -81,7 +82,7 @@ export const updateProfile = async (req, res) => {
             status,
             branch,
             workingAt,
-            socialHandles: JSON.parse(socialHandles),
+            socialHandles: socialHandles != undefined? JSON.parse(socialHandles) : [],
             picturePath: `http://localhost:3000/profileImages/${picturePath}`
         }, { new: true }); // 'new: true' returns the updated document
 
@@ -92,12 +93,14 @@ export const updateProfile = async (req, res) => {
 
         // If the user was not found, send a 404 response
         if (!updatedUser) {
+            console.log("user not found");
             return res.status(404).json({ message: 'User not found' });
         }
 
         // Send the updated user as the response
         res.status(200).json(updatedUser);
     } catch (error) {
+        console.log(error);
         // If an error occurred, send a 500 response
         res.status(500).json({ message: 'An error occurred while updating the profile', error: error.message });
     }

@@ -24,7 +24,7 @@ const Posts = ({ userId, isProfile = false }) => {
             method: "GET"
         });
         const userPosts = await response.json();
-        console.log({userPosts});
+        // console.log({userPosts});
 
         dispatch(setPosts({ posts: userPosts }));
     }
@@ -32,10 +32,10 @@ const Posts = ({ userId, isProfile = false }) => {
     useEffect(() => {
         if(!isProfile) {
             getfeedPosts();
-            console.log("feed posts called")
+            // console.log("feed posts called")
         } else {
             getUserPosts();
-            console.log("user posts called")
+            // console.log("user posts called")
         }
     }, []);
 
@@ -61,8 +61,8 @@ const Posts = ({ userId, isProfile = false }) => {
                         picturePath,
                         // userPicturePath,
                         likes,
-                        createdAt
-                        // comments,
+                        createdAt,
+                        comments,
                     }) => (
                         <PostCard 
                             key={_id} // unique key --> Remember to use unique key while using loops in react 
@@ -74,7 +74,7 @@ const Posts = ({ userId, isProfile = false }) => {
                             // userPicturePath={userPicturePath}
                             likes={likes}
                             createdAt={createdAt}
-                            // comments={comments}
+                            comments={comments}
                         />
                     )
                 )

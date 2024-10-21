@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import FriendCard from './FriendCard'
 import { setFriends } from '../state';
 import { useEffect } from 'react';
-
+ 
 const FriendsList = ({ userId }) => {
     const dispatch = useDispatch();
     const friends = useSelector(state => state.user.friends);

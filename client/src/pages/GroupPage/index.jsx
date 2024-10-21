@@ -12,6 +12,7 @@ import { useEffect } from "react";
 const GroupPage = () => {
     const { groupId } = useParams();
     const dispatch = useDispatch();
+    const loggedInUser = useSelector(state => state.user);
     const gr = useSelector(state => state.group);
     console.log(gr);
 
@@ -40,6 +41,9 @@ const GroupPage = () => {
                     <GroupInfoCard groupId={groupId} />
                 </div>
                 <div className="sm:col-span-8 lg:col-span-6 rounded-xl">
+                    {/* {
+                        gr.members.find(loggedInUser) ? "" : ""
+                    } */}
                     <CreateGroupPost />
                     <GroupPosts groupId={groupId} />
                 </div>

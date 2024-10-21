@@ -14,7 +14,14 @@ const PostSchema = new mongoose.Schema({
         of: Boolean // It checks if the user Id is exists in the map and value is true if it's exist.
     },
     comments: {
-        type: Array,
+        type: [{
+            userId: mongoose.Schema.Types.ObjectId,
+            comment: String,
+            timestamps: {
+                type: Date,
+                default: Date.now // Automatically sets the current date and time
+            }
+        }],
         default: []
     }
 }, { timestamps: true }); // This option automatically adds createdAt and updatedAt fields to your schema, which Mongoose will automatically manage.

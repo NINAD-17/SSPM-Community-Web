@@ -13,7 +13,7 @@ const GroupPostCard = ({ postId,
                         comments,
                         groupId, }) => {
     // console.log({postId}, {userId});
-    console.log({userId});
+    // console.log({userId});
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const loggedInUser = useSelector((state) => state.user);
@@ -22,7 +22,7 @@ const GroupPostCard = ({ postId,
     const loggedInUserId = loggedInUser._id;
     const [ isMoreVertOn, setIsMoreVertOn ] = useState(false);
     const [ isFriend, setIsFriend ] = useState(false);
-    console.log({loggedInUserId});
+    // console.log({loggedInUserId});
     const isLiked = likes ? Boolean(likes[loggedInUserId]) : false;
     const likesCount = likes ? Object.keys(likes).length : 0;
     // console.log({likes});
@@ -51,7 +51,7 @@ const GroupPostCard = ({ postId,
     }
 
     const deletePost = async () => {
-        console.log("del", {loggedInUserId});
+        // console.log("del", {loggedInUserId});
         const response = await fetch(`http://localhost:3000/groups/post/${ postId }/delete`, {
             method: "DELETE",
             headers: {
@@ -59,8 +59,8 @@ const GroupPostCard = ({ postId,
             },
             body: JSON.stringify({ userId: loggedInUserId })
         });
-        console.log({groupId});
-        console.log(response);
+        // console.log({groupId});
+        // console.log(response);
         if (response.status === 200) {
             const updatedPosts = posts.filter((post) => post._id !== postId)
             dispatch(setPosts({ posts: updatedPosts }))
@@ -75,7 +75,7 @@ const GroupPostCard = ({ postId,
 
         // if(response.status === 404) navigate("/404"); // :( User not found
 
-        console.log({response}, {data});
+        // console.log({response}, {data});
         setPostUser(data);
     }
 
@@ -140,7 +140,7 @@ const GroupPostCard = ({ postId,
                 </div>
                 {picturePath ? 
                     <div className="post-img my-3 overflow-hidden object-cover w-full">
-                        <img className="rounded object-cover" src={picturePath} alt="" />
+                        <img className="object-cover rounded-xl" src={picturePath} alt="" />
                     </div>
                     : <></>
                 }

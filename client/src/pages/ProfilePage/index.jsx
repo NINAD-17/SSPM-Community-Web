@@ -20,7 +20,7 @@ const ProfilePage = () => {
             method: "GET",
         });
         const data = await response.json();
-        console.log({data});
+        // console.log({data});
 
         setUser(data);
     }
@@ -31,7 +31,7 @@ const ProfilePage = () => {
 
     if(!user) return null;
 
-    console.log("about", user.about);
+    // console.log("about", user.about);
 
     return (
         <>

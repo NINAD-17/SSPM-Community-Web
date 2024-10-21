@@ -20,7 +20,7 @@ const ProfileCard = ({ userId }) => {
 
         // if(response.status === 404) navigate("/404"); // :( User not found
 
-        console.log({response}, {data});
+        // console.log({response}, {data});
         setUser(data);
         setIsFriend(loggedInUser.friends.find((friend) => friend._id === userId))
     }
@@ -33,7 +33,7 @@ const ProfileCard = ({ userId }) => {
             }
         });
         const data = await response.json();
-        console.log("likes: ", {data});
+        // console.log("likes: ", {data});
         dispatch(setFriends({ friends: data }));
     }
 
@@ -48,7 +48,7 @@ const ProfileCard = ({ userId }) => {
     }
 
     const { firstName, lastName, headline, picturePath, status, branch, gradYear } = user;
-    console.log({user});
+    // console.log({user});
 
     return (
         <>

@@ -14,7 +14,7 @@ const GroupPosts = ({ groupId }) => {
             method: "GET"
         });
         const groupPosts = await response.json();
-        console.log({groupPosts});
+        // console.log({groupPosts});
 
         dispatch(setPosts({ posts: groupPosts }));
     }

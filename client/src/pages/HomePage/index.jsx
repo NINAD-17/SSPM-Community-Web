@@ -7,7 +7,7 @@ import Posts from "../../components/Posts";
 import FriendsList from "../../components/FriendsList";
 import ThreeCard from "../../components/ThreeCard";
 import Footer from "../../components/Footer";
-
+ 
 const HomePage = () => {
     const { _id } = useSelector((state) => state.user);
     const mobContent = useSelector(state => state.mobContent);

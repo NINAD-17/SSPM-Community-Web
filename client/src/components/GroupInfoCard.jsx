@@ -6,7 +6,7 @@ const GroupInfoCard = ({ groupId }) => {
     const dispatch = useDispatch();
     const loggedInUser = useSelector(state => state.user);
     const group = useSelector(state => state.group);
-    console.log("gr", group);
+    // console.log("gr", group);
     // console.log("tyop", typeof group.admins);
     // console.log("tyop", typeof group.members);
 
@@ -16,7 +16,7 @@ const GroupInfoCard = ({ groupId }) => {
         });
 
         const groupInfo = await response.json();
-        console.log({groupInfo});
+        // console.log({groupInfo});
         dispatch(setGroup(groupInfo));
     }
 
@@ -26,12 +26,12 @@ const GroupInfoCard = ({ groupId }) => {
         });
 
         const members = await response.json();
-        console.log({members});
+        // console.log({members});
         if(response.status === 200) dispatch(setGroupMembers(members));
     }
 
     useEffect(() => {
-        console.log("ugroup:", group);
+        // console.log("ugroup:", group);
         getGroupInfo();
     }, []);
 

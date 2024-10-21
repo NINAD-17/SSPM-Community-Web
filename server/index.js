@@ -14,9 +14,10 @@ import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
 import userRoutes from "./routes/users.js";
 import groupRoutes from "./routes/groups.js";
+import commentRoutes from "./routes/comments.js";
 import User from "./models/User.js";
 import Post from "./models/Post.js";
-import { users, posts } from "./data/index.js";
+// import { users, posts } from "./data/index.js";
 import { createPost } from "./controllers/posts.js";
 import { createGroupPost } from "./controllers/groups.js";
 import { updateProfile } from "./controllers/users.js";
@@ -90,14 +91,18 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 app.use("/groups", groupRoutes);
+app.use("/comments", commentRoutes)
 
 // Mongoose Setup and listening on port
 const PORT = 3000;
-mongoose.connect("mongodb://127.0.0.1:27017/sspmcommunitydev") //mongodb://127.0.0.1:27017/sspmcommunitydev //process.env.MONGO_URL
-    .then(() => {
-        app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+mongoose
+  .connect(
+    "mongodb+srv://Ninad_17:Gz38igW0ydnlgklo@cluster0.8oofvip.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  ) //mongodb://127.0.0.1:27017/sspmcommunitydev //process.env.MONGO_URL
+  .then(() => {
+    app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
     // User.insertMany(users);
     // Post.insertMany(posts);
-    })
-    .catch((error) => console.log(`{error} \n:( Unable to connect!`));
+  })
+  .catch((error) => console.log(`{error} \n:( Unable to connect!`));

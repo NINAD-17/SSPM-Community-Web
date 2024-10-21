@@ -21,8 +21,8 @@ const EditProfile = () => {
     const [workingAt, setWorkingAt] = useState(loggedInUser.workingAt);
     const [ isPictureSelected, setIsPictureSelected ] = useState(false);
     const [ picture, setPicture ] = useState(null);
-    const [ github, setGithub ] = useState(loggedInUser.socialHandles[0].url || null);
-    const [ linkedin, setLinkedin ] = useState(loggedInUser.socialHandles[1].url || null);
+    const [ github, setGithub ] = useState(loggedInUser.socialHandles[0]?.url || null);
+    const [ linkedin, setLinkedin ] = useState(loggedInUser.socialHandles[1]?.url || null);
     console.log({loggedInUser});
     console.log("Logg", loggedInUser._id);
     console.log(typeof loggedInUser._id);
@@ -64,11 +64,12 @@ const EditProfile = () => {
         if(picture) {
             formData.append("picture", picture[0])
             formData.append("picturePath", picture[0].name)
-        } else {
+        } 
+        else {
             formData.append("picturePath", loggedInUser.picturePath)
         }
 
-
+ 
         const response = await fetch(`http://localhost:3000/users/${id}/edit`, {
             method: "PATCH",
             // headers: {

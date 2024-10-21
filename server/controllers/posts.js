@@ -110,3 +110,56 @@ export const deletePost = async(req, res) => {
         res.status(500).json({ message: error.message })
     }
 }
+
+export const createComment = async(req, res) => {
+    try {
+        const { id } = req.params; // Id of the particular post
+        const { userId, comment } = req.body;
+        console.log({userId, comment});
+
+        // Find the post by id
+        const post = await Post.findById(id);
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        // Add the new comment to the comments array
+        post.comments.push({ userId, comment });
+
+        // Save the updated post document
+        await post.save();
+
+        res.status(200).json(post);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+export const deleteComment = async (req, res) => {
+    try {
+        const { postId, commentId } = req.params; // Id of the particular post and comment
+
+        console.log({postId, commentId})
+        // Find the post by id
+        const post = await Post.findById(postId);
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        // Find the index of the comment to be deleted
+        const commentIndex = post.comments.findIndex(comment => comment._id.toString() === commentId);
+        if (commentIndex === -1) {
+            return res.status(404).json({ message: "Comment not found" });
+        }
+
+        // Remove the comment from the comments array
+        post.comments.splice(commentIndex, 1);
+
+        // Save the updated post document
+        await post.save();
+
+        res.status(200).json(post);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
