@@ -10,6 +10,14 @@ import NotFound from "./pages/NotFound"
 import Navbar from "./components/Navbar"
 import FindFriends from "./pages/FindFriends"
 import GroupPage from "./pages/GroupPage"
+import Dashboard from "./pages/Dashboard"
+import Events from "./pages/Events"
+import Opportunities from "./pages/Opportunities"
+import Jobform from "./pages/JobForm"
+import AdminDashboard from "./pages/AdminDashboard"
+import UserNetwork from "./pages/UserNetwork"
+
+
 const ProfilePage = React.lazy(() => import("./pages/ProfilePage"))
 const CommentPage = React.lazy(() => import("./pages/CommentPage"))
 const EditProfile = React.lazy(() => import("./pages/EditProfile"))
@@ -20,20 +28,27 @@ const routes = () => {
         // **** Include line for react.suspense here to show loader.
         <Router>
             <Suspense fallback={<div className="flex justify-center items-center h-dvh"><img className="h-20 w-20" src="../loading_blue.gif" alt="" /></div>}>
-            <Routes>
-                <Route path="/" element={<LoginPage />} />
-                <Route path="/home" element={<HomePage />} />
-                <Route path="/profile/:userId" element={<ProfilePage />} />
-                <Route path="/comments" element={<CommentPage />} />
-                <Route path="/nav" element={<Navbar />} />
-                <Route path="/friends" element={<FindFriends />} />
-                <Route path="/:userId/edit" element={<EditProfile />} />
-                {/* groupPostsPage */}
-                <Route path="/group/:groupId" element={<GroupPage />} />
-                
-                {/* ... Think about more pages */}
-                <Route path="/404" element={<NotFound />} />
-            </Routes>
+                <Routes>
+                    <Route path="/Dashboard" element={<Dashboard />} />
+                    <Route path="/Events" element={<Events />} />
+                    <Route path="/" element={<LoginPage />} />
+                    <Route path="/home" element={<HomePage />} />
+                    <Route path="/profile/:userId" element={<ProfilePage />} />
+                    <Route path="/comments" element={<CommentPage />} />
+                    <Route path="/nav" element={<Navbar />} />
+                    <Route path="/friends" element={<FindFriends />} />
+                    <Route path="/:userId/edit" element={<EditProfile />} />
+                    <Route path="/Opportunities" element={<Opportunities />} />
+                    <Route path="/Jobform" element={<Jobform />} />
+                    <Route path="/AdminDashboard" element={<AdminDashboard />} />
+                    <Route path="/UserNetwork" element={<UserNetwork />} />
+                    {/* groupPostsPage */}
+                    <Route path="/group/:groupId" element={<GroupPage />} />
+                    <Route path="/Opportunities" element={<Opportunities />} />
+
+                    {/* ... Think about more pages */}
+                    <Route path="/404" element={<NotFound />} />
+                </Routes>
             </Suspense>
         </Router>
     )
