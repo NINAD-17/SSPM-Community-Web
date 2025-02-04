@@ -88,7 +88,7 @@ const EditProfile = () => {
     return (
 
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <div className="bg-white mt-20 mb-5 rounded-xl px-8 py-5 mx-2 md:mx-24 lg:mx-32 xl:mx-40 max-w-7xl 2xl:mx-auto">
                 <form onSubmit={handleUpdate}>
                     { 

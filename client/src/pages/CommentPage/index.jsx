@@ -5,7 +5,6 @@ const CommentPage = () => {
     return (
         <>
             <Navbar />
-
             <ProfileCard />
         </>
     )
