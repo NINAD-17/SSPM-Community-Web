@@ -87,9 +87,8 @@ const UserNetwork = () => {
                                 <button
                                     key={category.name}
                                     onClick={() => handleCategoryClick(category.name)}
-                                    className={`w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors duration-200 ${
-                                        selectedCategory === category.name ? 'bg-blue-50 border-l-4 border-blue-500' : ''
-                                    }`}
+                                    className={`w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors duration-200 ${selectedCategory === category.name ? 'bg-blue-50 border-l-4 border-blue-500' : ''
+                                        }`}
                                 >
                                     <div className="flex items-center gap-3">
                                         <span className="text-xl">{category.icon}</span>

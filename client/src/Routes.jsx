@@ -11,11 +11,12 @@ import Navbar from "./components/Navbar"
 import FindFriends from "./pages/FindFriends"
 import GroupPage from "./pages/GroupPage"
 import Dashboard from "./pages/Dashboard"
-import Events from "./pages/Events"
 import Opportunities from "./pages/Opportunities"
 import Jobform from "./pages/JobForm"
 import AdminDashboard from "./pages/AdminDashboard"
 import UserNetwork from "./pages/UserNetwork"
+import EventPage from "./pages/EventPage"
+
 
 
 const ProfilePage = React.lazy(() => import("./pages/ProfilePage"))
@@ -30,7 +31,6 @@ const routes = () => {
             <Suspense fallback={<div className="flex justify-center items-center h-dvh"><img className="h-20 w-20" src="../loading_blue.gif" alt="" /></div>}>
                 <Routes>
                     <Route path="/Dashboard" element={<Dashboard />} />
-                    <Route path="/Events" element={<Events />} />
                     <Route path="/" element={<LoginPage />} />
                     <Route path="/home" element={<HomePage />} />
                     <Route path="/profile/:userId" element={<ProfilePage />} />
@@ -45,6 +45,7 @@ const routes = () => {
                     {/* groupPostsPage */}
                     <Route path="/group/:groupId" element={<GroupPage />} />
                     <Route path="/Opportunities" element={<Opportunities />} />
+                    <Route path="/EventPage" element={<EventPage />} />
 
                     {/* ... Think about more pages */}
                     <Route path="/404" element={<NotFound />} />
